@@ -10,6 +10,7 @@ namespace EverestForms\OpenAI;
 
 use EverestForms\OpenAI\API\API;
 use EverestForms\OpenAI\Process\Process;
+
 /**
  * Main plugin class.F
  *
@@ -89,12 +90,69 @@ class OpenAI {
 				add_action( 'everest_forms_init', array( $this, 'openai_init' ) );
 				add_filter( 'everest_forms_fields', array( $this, 'form_fields' ) );
 
+				// Enqueue Scripts.
+				add_action( 'everest_forms_frontend_output', array( $this, 'frontend_enqueue_scripts' ) );
+				add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
+
 			} else {
 				add_action( 'admin_notices', array( $this, 'everest_forms_pro_missing_notice' ) );
 			}
 		} else {
 			add_action( 'admin_notices', array( $this, 'everest_forms_missing_notice' ) );
 		}
+	}
+
+	/**
+	 * Frontend Enqueue scripts.
+	 *
+	 * @param array $form_data Form Data.
+	 */
+	public function frontend_enqueue_scripts( $form_data ) {
+		$suffix    = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+		$form_id   = isset( $form_data['id'] ) ? absint( $form_data['id'] ) : 0;
+		$field_ids = array();
+		foreach ( $form_data['form_fields'] as $key => $field ) {
+			if ( array_key_exists( 'ai_input', $field ) ) {
+					$ai_prompt = $field['ai_input'];
+					preg_match_all( '/\{field_id="(.+?)"\}/', $ai_prompt, $ids );
+				foreach ( $ids[1] as $key => $field_id ) {
+					$mixed_field_id = explode( '_', $field_id );
+					$field_ids[]    = $mixed_field_id[1];
+
+				}
+			}
+		}
+
+		wp_register_script( 'everest-forms-openai', plugins_url( "/assets/js/frontend/everest-forms-openai{$suffix}.js", EVF_OPENAI_PLUGIN_FILE ), array( 'jquery' ), EVF_OPENAI_VERSION, true );
+		wp_enqueue_script( 'everest-forms-openai' );
+		wp_localize_script(
+			'everest-forms-openai',
+			'everest_forms_openai_params',
+			array(
+				'ajax_url'                   => admin_url( 'admin-ajax.php' ),
+				'everest_forms_openai_nonce' => wp_create_nonce( 'everest_forms_openai' ),
+				'field_id'                   => $field_ids,
+				'form_id'                    => $form_id,
+			)
+		);
+	}
+
+	/**
+	 * Admin Enqueue Scripts.
+	 */
+	public function admin_enqueue_scripts() {
+		$screen    = get_current_screen();
+		$screen_id = $screen ? $screen->id : '';
+		$suffix    = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+
+		// Register admin scripts.
+		wp_register_script( 'everest-forms-openai-settings', plugins_url( "/assets/js/admin/admin{$suffix}.js", EVF_OPENAI_PLUGIN_FILE ), array( 'jquery' ), EVF_OPENAI_VERSION, true );
+
+		// Admin scripts for EVF settings page.
+		if ( 'everest-forms_page_evf-builder' === $screen_id ) {
+			wp_enqueue_script( 'everest-forms-openai-settings' );
+		}
+
 	}
 
 	/**
@@ -116,6 +174,7 @@ class OpenAI {
 	 */
 	public function openai_init() {
 		new Process();
+		new Ajax();
 	}
 
 	/**

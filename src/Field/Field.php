@@ -47,6 +47,7 @@ class Field extends \EVF_Form_Fields {
 			),
 			'advanced-options' => array(
 				'field_options' => array(
+					'ai_chatbot',
 					'ai_prompt',
 					'ai_type',
 					'label_hide',
@@ -65,44 +66,104 @@ class Field extends \EVF_Form_Fields {
 
 	}
 
+	public function ai_chatbot( $field ) {
+		$value             = ! empty( $field['ai_chatbot'] ) ? esc_attr( $field['ai_chatbot'] ) : '';
+		$ai_prompt_chatbot = $this->field_element(
+			'checkbox',
+			$field,
+			array(
+				'slug'    => 'ai_chatbot',
+				'value'   => $value,
+				'desc'    => esc_html__( 'Enable Chatbot', 'everest-forms-openai' ),
+				'tooltip' => esc_html__( 'Enable Chatbot', 'everest-forms-openai' ),
+			),
+			false
+		);
+		$ai_prompt_chatbot = $this->field_element(
+			'row',
+			$field,
+			array(
+				'slug'    => 'ai_chatbot',
+				'content' => $ai_prompt_chatbot,
+			),
+			false
+		);
+		$args              = array(
+			'slug'    => 'ai_chatbot',
+			'content' => $ai_prompt_chatbot,
+		);
+		$this->field_element( 'row', $field, $args );
+
+	}
+
 	/**
 	 * AI Prompt field option.
 	 *
 	 * @param array $field Field data.
 	 */
 	public function ai_prompt( $field ) {
-		$ai_prompt       = ! empty( $field['ai_prompt'] ) ? sanitize_text_field( $field['ai_prompt'] ) : '';
-		$ai_prompt_label = $this->field_element(
+		$ai_prompt        = ! empty( $field['ai_input'] ) ? sanitize_text_field( $field['ai_input'] ) : '';
+		$ai_chatbot_input = ! empty( $field['ai_chatbot_input'] ) ? sanitize_text_field( $field['ai_chatbot_input'] ) : '';
+		$ai_prompt_label  = $this->field_element(
 			'label',
 			$field,
 			array(
 				'slug'    => 'ai_input',
-				'value'   => esc_html__( 'Prompt', 'everest-forms-open-ai' ),
-				'tooltip' => esc_html__( 'Please Enter', 'everest-forms-open-ai' ),
+				'value'   => esc_html__( 'Prompt', 'everest-forms-openai' ),
+				'tooltip' => esc_html__( 'Please Enter', 'everest-forms-openai' ),
 			),
 			false
 		);
-		$ai_prompt_input = $this->field_element(
+		$ai_prompt_input  = $this->field_element(
 			'textarea',
 			$field,
 			array(
 				'slug'        => 'ai_input',
 				'value'       => $ai_prompt,
-				'class'       => 'evf-ai-input',
 				'placeholder' => 'Please enter',
 			),
 			false
 		);
-
 		$ai_prompt_input .= '<a href="#" class="evf-toggle-smart-tag-display" data-type="fields"><span class="dashicons dashicons-editor-code"></span></a>';
 		$ai_prompt_input .= '<div class="evf-smart-tag-lists" style="display: none">';
 		$ai_prompt_input .= '<div class="smart-tag-title other-tag-title">Available fields</div><ul class="evf-fields"></ul></div>';
-
-		$args = array(
+		$args             = array(
 			'slug'    => 'ai_input',
 			'content' => $ai_prompt_label . $ai_prompt_input,
+			'class'   => isset( $field['ai_chatbot'] ) ? 'hidden' : '',
 		);
 		$this->field_element( 'row', $field, $args );
+
+		$ai_prompt_label  = $this->field_element(
+			'label',
+			$field,
+			array(
+				'slug'    => 'ai_chatbot_input',
+				'value'   => esc_html__( 'Filed Mapping', 'everest-forms-openai' ),
+				'tooltip' => esc_html__( 'Field Mapping', 'everest-forms-openai' ),
+			),
+			false
+		);
+		$ai_prompt_input  = $this->field_element(
+			'textarea',
+			$field,
+			array(
+				'slug'        => 'ai_chatbot_input',
+				'value'       => $ai_chatbot_input,
+				'placeholder' => 'Please enter',
+			),
+			false
+		);
+		$ai_prompt_input .= '<a href="#" class="evf-toggle-smart-tag-display" data-type="fields"><span class="dashicons dashicons-editor-code"></span></a>';
+		$ai_prompt_input .= '<div class="evf-smart-tag-lists" style="display: none">';
+		$ai_prompt_input .= '<div class="smart-tag-title other-tag-title">Available fields</div><ul class="evf-fields"></ul></div>';
+		$args             = array(
+			'slug'    => 'ai_chatbot_input',
+			'content' => $ai_prompt_label . $ai_prompt_input,
+			'class'   => isset( $field['ai_chatbot'] ) ? '' : 'hidden',
+		);
+		$this->field_element( 'row', $field, $args );
+
 	}
 
 	/**
@@ -129,16 +190,16 @@ class Field extends \EVF_Form_Fields {
 				'slug'    => 'ai_type',
 				'value'   => $ai_type,
 				'options' => array(
-					'hidden'   => esc_html__( 'Hidden', 'everest-forms-open-ai' ),
-					'textarea' => esc_html__( 'Textarea', 'everest-forms-open-ai' ),
-					'html'     => esc_html__( 'HTML', 'everest-forms-open-ai' ),
+					'hidden'   => esc_html__( 'Hidden', 'everest-forms-openai' ),
+					'textarea' => esc_html__( 'Textarea', 'everest-forms-openai' ),
+					'html'     => esc_html__( 'HTML', 'everest-forms-openai' ),
 				),
 			),
 			false
 		);
 
 		$args = array(
-			'slug'    => 'ai_price',
+			'slug'    => 'ai_type',
 			'content' => $ai_format_label . $ai_format_select,
 		);
 		$this->field_element( 'row', $field, $args );
