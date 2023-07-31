@@ -239,7 +239,9 @@ class Field extends \EVF_Form_Fields {
 	 * @return array of additional field properties.
 	 */
 	public function field_properties( $properties, $field, $form_data ) {
-
+		if ( isset( $field['ai_chatbot'] ) ) {
+			$properties['inputs']['primary']['attr']['ai_chatbot'] = $field['ai_chatbot'];
+		}
 		return $properties;
 	}
 

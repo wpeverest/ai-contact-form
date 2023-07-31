@@ -23,6 +23,13 @@ var EverestFormsOpenAI =
        */
       ready: function () {
         $(document).ready(function () {
+          if ($("textarea[ai_chatbot='1']").length > 0) {
+            $(".evf-submit-container").hide();
+          } else if ($("div[ai_chatbot='1']").length > 0) {
+            $(".evf-submit-container").hide();
+          }
+        });
+        $(document).ready(function () {
           var fieldIds = everest_forms_openai_params.field_id;
           var selectedElements = $();
 
@@ -46,7 +53,7 @@ var EverestFormsOpenAI =
           action: "everest_forms_openai_chat_bot",
           security: everest_forms_openai_params.everest_forms_openai_nonce,
           chat: chat,
-		  form_id: everest_forms_openai_params.form_id,
+          form_id: everest_forms_openai_params.form_id,
         };
         $.ajax({
           url: everest_forms_openai_params.ajax_url,
@@ -54,7 +61,17 @@ var EverestFormsOpenAI =
           data: data,
         })
           .done(function (xhr, textStatus, errorThrown) {
-            $("#evf-132-field_nRxbISRLX1-15").val(xhr.data);
+            if (true === xhr.success) {
+              var targetFieldName =
+                "everest_forms[form_fields][" + xhr.data.field_id + "]";
+              if (xhr.data.field_type === "html") {
+                $('div[name="' + targetFieldName + '"]').text(xhr.data.message);
+              } else if (xhr.data.field_type === "textarea") {
+                $('textarea[name="' + targetFieldName + '"]').val(
+                  xhr.data.message
+                );
+              }
+            }
           })
           .fail(function () {})
           .always(function (xhr) {});

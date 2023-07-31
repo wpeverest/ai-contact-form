@@ -112,8 +112,8 @@ class OpenAI {
 		$form_id   = isset( $form_data['id'] ) ? absint( $form_data['id'] ) : 0;
 		$field_ids = array();
 		foreach ( $form_data['form_fields'] as $key => $field ) {
-			if ( array_key_exists( 'ai_input', $field ) ) {
-					$ai_prompt = $field['ai_input'];
+			if ( array_key_exists( 'ai_chatbot_input', $field ) ) {
+					$ai_prompt = $field['ai_chatbot_input'];
 					preg_match_all( '/\{field_id="(.+?)"\}/', $ai_prompt, $ids );
 				foreach ( $ids[1] as $key => $field_id ) {
 					$mixed_field_id = explode( '_', $field_id );
@@ -122,7 +122,6 @@ class OpenAI {
 				}
 			}
 		}
-
 		wp_register_script( 'everest-forms-openai', plugins_url( "/assets/js/frontend/everest-forms-openai{$suffix}.js", EVF_OPENAI_PLUGIN_FILE ), array( 'jquery' ), EVF_OPENAI_VERSION, true );
 		wp_enqueue_script( 'everest-forms-openai' );
 		wp_localize_script(
