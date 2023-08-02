@@ -1,0 +1,181 @@
+# Copyright (C) 2023 WPEverest
+# This file is distributed under the same license as the Everest Forms - OpenAI plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: Everest Forms - OpenAI 1.0.0\n"
+"Report-Msgid-Bugs-To: help@wpeverest.com\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2023-07-31T09:32:44+02:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.6.0\n"
+"X-Domain: everest-forms-openai\n"
+
+#. Plugin Name of the plugin
+msgid "Everest Forms - OpenAI"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://wpeverest.com/wordpress-plugins/everest-forms/openai/"
+msgstr ""
+
+#. Description of the plugin
+msgid "Everest Forms OpenAI addon allows you to add OpenAI into your forms."
+msgstr ""
+
+#. Author of the plugin
+msgid "WPEverest"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://wpeverest.com"
+msgstr ""
+
+#. translators: 1: composer command. 2: plugin directory
+#: everest-forms-openai.php:46
+#: everest-forms-openai.php:65
+msgid "Your installation of the Everest Forms - OpenAI plugin is incomplete. Please run %1$s within the %2$s directory."
+msgstr ""
+
+#: src/Admin/Settings.php:33
+msgid "Open AI"
+msgstr ""
+
+#: src/Admin/Settings.php:34
+msgid "Open AI Integration with Everest Forms"
+msgstr ""
+
+#: src/Admin/Settings.php:57
+msgid "Please fill the full details"
+msgstr ""
+
+#: src/Admin/Settings.php:68
+#: src/Admin/Settings.php:83
+msgid "Could not connect to the provider."
+msgstr ""
+
+#: src/Admin/Settings.php:76
+#: src/Admin/Settings.php:157
+msgid "Remove Authentication"
+msgstr ""
+
+#: src/Admin/Settings.php:77
+#: src/Admin/Settings.php:142
+msgid "Open AI account authenticated."
+msgstr ""
+
+#: src/Admin/Settings.php:84
+msgid "Unauthorized Account sid or Auth token."
+msgstr ""
+
+#: src/Admin/Settings.php:128
+msgid "Connected"
+msgstr ""
+
+#: src/Admin/Settings.php:138
+msgid "Open AI Sms Setting"
+msgstr ""
+
+#: src/Admin/Settings.php:140
+msgid "Please fill out the fields to connect your Open AI account."
+msgstr ""
+
+#: src/Admin/Settings.php:148
+msgid "Api Key"
+msgstr ""
+
+#: src/Admin/Settings.php:149
+msgid "Enter Open API Key"
+msgstr ""
+
+#: src/Admin/Settings.php:153
+msgid "Authenticate with Open AI"
+msgstr ""
+
+#: src/Ajax.php:60
+msgid "Nonce error, please reload."
+msgstr ""
+
+#: src/Field/Field.php:32
+msgid "AI"
+msgstr ""
+
+#: src/Field/Field.php:77
+#: src/Field/Field.php:78
+msgid "Enable Chatbot"
+msgstr ""
+
+#: src/Field/Field.php:114
+msgid "Prompt"
+msgstr ""
+
+#: src/Field/Field.php:115
+msgid "Please Enter"
+msgstr ""
+
+#: src/Field/Field.php:144
+msgid "Filed Mapping"
+msgstr ""
+
+#: src/Field/Field.php:145
+msgid "Field Mapping"
+msgstr ""
+
+#: src/Field/Field.php:195
+msgid "Hidden"
+msgstr ""
+
+#: src/Field/Field.php:196
+msgid "Textarea"
+msgstr ""
+
+#: src/Field/Field.php:197
+msgid "HTML"
+msgstr ""
+
+#: src/OpenAI.php:43
+msgid "Cloning is forbidden."
+msgstr ""
+
+#: src/OpenAI.php:52
+msgid "Unserializing instances of this class is forbidden."
+msgstr ""
+
+#: src/OpenAI.php:241
+msgid "View Everest Forms OpenAI Settings"
+msgstr ""
+
+#: src/OpenAI.php:241
+msgid "Settings"
+msgstr ""
+
+#: src/OpenAI.php:259
+msgid "View Everest Forms OpenAI documentation"
+msgstr ""
+
+#: src/OpenAI.php:259
+msgid "Docs"
+msgstr ""
+
+#. translators: %s: everest-forms version
+#: src/OpenAI.php:275
+msgid "Everest Forms - OpenAI requires at least %s or later to work!"
+msgstr ""
+
+#. translators: %s: everest-forms version
+#: src/OpenAI.php:275
+msgid "Everest Forms 1.9.3"
+msgstr ""
+
+#. translators: %s: everest-forms-OpenAI version
+#: src/OpenAI.php:285
+msgid "Everest Forms - OpenAI depends on the last version of %s or later to work!"
+msgstr ""
+
+#. translators: %s: everest-forms-OpenAI version
+#: src/OpenAI.php:285
+msgid "Everest Forms Pro 1.5.8"
+msgstr ""

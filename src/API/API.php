@@ -67,7 +67,7 @@ class API {
 		$api_url = $this->endpoint . $path;
 
 		$default_data       = array(
-			'model'       => 'gpt-3.5-turbo-0613',
+			'model'       => 'gpt-3.5-turbo-0301',
 			'messages'    => array(
 				array(
 					'role'    => 'system',

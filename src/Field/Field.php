@@ -96,6 +96,8 @@ class Field extends \EVF_Form_Fields {
 
 	}
 
+
+
 	/**
 	 * AI Prompt field option.
 	 *
@@ -213,18 +215,14 @@ class Field extends \EVF_Form_Fields {
 	 * @param array $field Field data and settings.
 	 */
 	public function field_preview( $field ) {
+			// Label.
+			$this->field_preview_option( 'label', $field );
 
-		// Define data.
-		$default = ! empty( $field['default'] ) ? esc_attr( $field['default'] ) : '#000000';
+			// Default value.
+			$default_value = isset( $field['default_value'] ) && ! empty( $field['default_value'] ) ? $field['default_value'] : '';
 
-		// Label.
-		$this->field_preview_option( 'label', $field );
-
-		// Primary input.
-		echo '<div class="evf-color-picker-bg" style="background: ' . esc_attr( $default ) . ';"></div><input type="text" class="widefat colorpickpreview" disabled>';
-
-		// Description.
-		$this->field_preview_option( 'description', $field );
+			// Primary input.
+			echo '<input type="text" value="' . esc_attr( $default_value ) . '" class="widefat" disabled>';
 	}
 
 	/**
@@ -239,8 +237,12 @@ class Field extends \EVF_Form_Fields {
 	 * @return array of additional field properties.
 	 */
 	public function field_properties( $properties, $field, $form_data ) {
+		$ai_type = ! empty( $field['ai_type'] ) ? $field['ai_type'] : 'hidden';
 		if ( isset( $field['ai_chatbot'] ) ) {
 			$properties['inputs']['primary']['attr']['ai_chatbot'] = $field['ai_chatbot'];
+		}
+		if ( 'hidden' === $ai_type ) {
+			$properties['label']['attr']['style'] = 'display:none';
 		}
 		return $properties;
 	}
@@ -258,7 +260,6 @@ class Field extends \EVF_Form_Fields {
 		$value   = '';
 		$primary = $field['properties']['inputs']['primary'];
 		$ai_type = ! empty( $field['ai_type'] ) ? $field['ai_type'] : 'hidden';
-
 		switch ( $ai_type ) {
 			case 'hidden':
 				printf(

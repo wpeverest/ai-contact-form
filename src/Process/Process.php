@@ -25,6 +25,47 @@ class Process {
 	 */
 	public function __construct() {
 		add_filter( 'everest_forms_process_filter', array( $this, 'process_filter' ), 10, 3 );
+		add_action( 'everest_forms_entry_email_atts', array( $this, 'process_message' ), 10, 4 );
+	}
+
+
+	/**
+	 * Process Message.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array $email     Emails.
+	 * @param array $fields    Fields for the Form.
+	 * @param array $entry     Form Entry.
+	 * @param array $form_data Form Data object.
+	 */
+	public function process_message( $email, $fields, $entry, $form_data ) {
+		$email['message'] = apply_filters( 'everest_forms_process_smart_tags', $email['message'], $form_data, $fields );
+		if ( preg_match( '/\{all_fields\}/', $email['message'] ) ) {
+			$formData = array();
+			foreach ( $fields as $key => $item ) {
+				$formData[ $item['name'] ] = $item['value'];
+			}
+
+			$emailMessage = str_replace( '{all_fields}', print_r( $formData, true ), $email['message'] );
+			$providers    = get_option( 'everest_forms_openai_settings', array() );
+			$api_key      = ! empty( $providers['api_key'] ) ? $providers['api_key'] : '';
+			$response     = new API( $api_key );
+			$data         = array(
+				'messages'    => array(
+					array(
+						'role'    => 'user',
+						'content' => 'hello',
+					),
+				),
+				'temperature' => 0.5,
+			);
+
+			$content          = $response->send_openai_request( 'chat/completions', $data );
+			$email['message'] = isset( $content['choices'][0]['message']['content'] ) ? wp_kses_post( $content['choices'][0]['message']['content'] ) : '';
+		}
+
+		return $email;
 	}
 
 	/**
