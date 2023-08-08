@@ -8,7 +8,6 @@
 
 namespace EverestForms\OpenAI\API;
 
-use WP_Error;
 defined( 'ABSPATH' ) || exit;
 
 /**
@@ -99,7 +98,12 @@ class API {
 
 		return json_decode( $response['body'], true );
 	}
-
+	/**
+	 * Authenticate using API key.
+	 *
+	 * @since 1.0.0
+	 * @return bool|array True on success, or an error array.
+	 */
 	public function authentication() {
 		$path    = 'models';
 		$headers = array(

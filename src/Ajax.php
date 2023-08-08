@@ -28,6 +28,8 @@ class Ajax {
 
 	/**
 	 * Hook in methods - uses WordPress ajax handlers (admin-ajax)
+	 *
+	 * @since 1.0.0
 	 */
 	public static function add_ajax_events() {
 
@@ -51,7 +53,11 @@ class Ajax {
 		}
 	}
 
-
+	/**
+	 * Handle the chat bot functionality.
+	 *
+	 * @since 1.0.0
+	 */
 	public static function chat_bot() {
 
 		if ( ! check_ajax_referer( 'everest_forms_openai', 'security', false ) ) {
@@ -82,7 +88,7 @@ class Ajax {
 					'temperature' => 0.5,
 				);
 				$content    = $response->send_openai_request( 'chat/completions', $data );
-				$message    = isset( $content['choices'][0]['message']['content'] ) ? esc_html( $content['choices'][0]['message']['content'] ) : '';
+				$message    = isset( $content['choices'][0]['message']['content'] ) ? wp_kses_post( $content['choices'][0]['message']['content'] ) : '';
 				wp_send_json_success(
 					array(
 						'message'    => $message,

@@ -41,35 +41,39 @@ class Process {
 	 */
 	public function process_message( $email, $fields, $entry, $form_data ) {
 		$email['message'] = apply_filters( 'everest_forms_process_smart_tags', $email['message'], $form_data, $fields );
-		if ( preg_match( '/\{all_fields\}/', $email['message'] ) ) {
+		$emailMessage     = $email['message'];
+		$providers        = get_option( 'everest_forms_openai_settings', array() );
+		$api_key          = ! empty( $providers['api_key'] ) ? $providers['api_key'] : '';
+		$response         = new API( $api_key );
+		$data             = array(
+			'messages'    => array(
+				array(
+					'role'    => 'user',
+					'content' => $emailMessage,
+				),
+			),
+			'temperature' => 0.5,
+		);
+
+		if ( preg_match( '/\{all_fields\}/', $emailMessage ) ) {
 			$formData = array();
 			foreach ( $fields as $key => $item ) {
 				$formData[ $item['name'] ] = $item['value'];
 			}
-
-			$emailMessage = str_replace( '{all_fields}', print_r( $formData, true ), $email['message'] );
-			$providers    = get_option( 'everest_forms_openai_settings', array() );
-			$api_key      = ! empty( $providers['api_key'] ) ? $providers['api_key'] : '';
-			$response     = new API( $api_key );
-			$data         = array(
-				'messages'    => array(
-					array(
-						'role'    => 'user',
-						'content' => 'hello',
-					),
-				),
-				'temperature' => 0.5,
-			);
-
-			$content          = $response->send_openai_request( 'chat/completions', $data );
-			$email['message'] = isset( $content['choices'][0]['message']['content'] ) ? wp_kses_post( $content['choices'][0]['message']['content'] ) : '';
+			$emailMessage = str_replace( '{all_fields}', print_r( $formData, true ), $emailMessage );
 		}
+
+		$content          = $response->send_openai_request( 'chat/completions', $data );
+		$email['message'] = isset( $content['choices'][0]['message']['content'] ) ? wp_kses_post( $content['choices'][0]['message']['content'] ) : '';
 
 		return $email;
 	}
 
+
 	/**
 	 * Process form after validation.
+	 *
+	 * @since 1.0.0
 	 *
 	 * @param mixed $form_fields Form Fields.
 	 * @param mixed $entry Entry.

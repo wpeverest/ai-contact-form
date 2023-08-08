@@ -62,6 +62,7 @@ class Settings extends \EVF_Integration {
 		try {
 			$auth             = new API( $this->client_key );
 			$is_authenticated = $auth->authentication();
+			lg( $is_authenticated );
 			if ( isset( $is_authenticated['code'] ) && 200 !== $is_authenticated['code'] ) {
 				wp_send_json_error(
 					array(
