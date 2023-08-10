@@ -42,30 +42,42 @@ class Process {
 	public function process_message( $email, $fields, $entry, $form_data ) {
 		$email['message'] = apply_filters( 'everest_forms_process_smart_tags', $email['message'], $form_data, $fields );
 		$emailMessage     = $email['message'];
+		$emailPrompt      = apply_filters( 'everest_forms_process_smart_tags', $email['message_ai_prompt'], $form_data, $fields );
 		$providers        = get_option( 'everest_forms_openai_settings', array() );
 		$api_key          = ! empty( $providers['api_key'] ) ? $providers['api_key'] : '';
 		$response         = new API( $api_key );
-		$data             = array(
+		$analysis_data    = array(
 			'messages'    => array(
 				array(
 					'role'    => 'user',
-					'content' => $emailMessage,
+					'content' => "Analyze the following prompt and provide a suitable response.\n\nPrompt:\n\"" . $emailPrompt . '"',
 				),
 			),
 			'temperature' => 0.5,
 		);
 
-		if ( preg_match( '/\{all_fields\}/', $emailMessage ) ) {
-			$formData = array();
-			foreach ( $fields as $key => $item ) {
-				$formData[ $item['name'] ] = $item['value'];
-			}
-			$emailMessage = str_replace( '{all_fields}', print_r( $formData, true ), $emailMessage );
-		}
+		// if ( preg_match( '/\{all_fields\}/', $emailMessage ) ) {
+		// $formData = array();
+		// foreach ( $fields as $key => $item ) {
+		// $formData[ $item['name'] ] = $item['value'];
+		// }
+		// $emailMessage = str_replace( '{all_fields}', print_r( $formData, true ), $emailMessage );
+		// }
 
-		$content          = $response->send_openai_request( 'chat/completions', $data );
-		$email['message'] = isset( $content['choices'][0]['message']['content'] ) ? wp_kses_post( $content['choices'][0]['message']['content'] ) : '';
+		$analysis_content   = $response->send_openai_request( 'chat/completions', $analysis_data );
+		$generated_analysis = isset( $analysis_content['choices'][0]['message']['content'] ) ? wp_kses_post( $analysis_content['choices'][0]['message']['content'] ) : '';
+		$response_data      = array(
+			'messages'    => array(
+				array(
+					'role'    => 'user',
+					'content' => $generated_analysis . $email['message'],
+				),
+			),
+			'temperature' => 0.5,
+		);
+		$response_content   = $response->send_openai_request( 'chat/completions', $response_data );
 
+		$email['message'] = isset( $analysis_content ['choices'][0]['message']['content'] ) ? wp_kses_post( $analysis_content ['choices'][0]['message']['content'] ) : '';
 		return $email;
 	}
 
