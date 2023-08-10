@@ -94,12 +94,31 @@ class OpenAI {
 				add_action( 'everest_forms_frontend_output', array( $this, 'frontend_enqueue_scripts' ) );
 				add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 
+				// Smart tags.
+				add_filter( 'everest_forms_smart_tags', array( $this, 'email_smart_tags' ) );
+
 			} else {
 				add_action( 'admin_notices', array( $this, 'everest_forms_pro_missing_notice' ) );
 			}
 		} else {
 			add_action( 'admin_notices', array( $this, 'everest_forms_missing_notice' ) );
 		}
+	}
+
+	/**
+	 * Email smart tags.
+	 *
+	 * @param mixed $tags Smart Tags.
+	 *
+	 * @since 1.0.0
+	 */
+	public function email_smart_tags( $tags ) {
+		return array_merge(
+			$tags,
+			array(
+				'ai_email_response' => esc_html__( 'AI Email Response', 'everest-forms-ai' ),
+			)
+		);
 	}
 
 	/**
