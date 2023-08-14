@@ -24,9 +24,19 @@
 				if ( $( event.target ).is( ':checked' ) ) {
 					$( '#everest-forms-field-option-row-' + id + '-ai_chatbot_input' ).show();
 					$( '#everest-forms-field-option-row-' + id + '-ai_input' ).hide();
+					$('#everest-forms-field-option-' + id + '-ai_type').empty();
+					$('#everest-forms-field-option-' + id + '-ai_type').append([
+						$('<option>', {value: 'textarea', text: 'TextArea'}),
+						$('<option>', {value: 'html', text: 'HTML'}),
+					]);
 				} else {
 					$( '#everest-forms-field-option-row-' + id + '-ai_chatbot_input' ).hide();
 					$( '#everest-forms-field-option-row-' + id + '-ai_input' ).show();
+					$('#everest-forms-field-option-' + id + '-ai_type').empty();
+					$('#everest-forms-field-option-' + id + '-ai_type').append([
+						$('<option>', {value: 'hidden', text: 'Hidden'}),
+					]);
+
 				}
 			});
 

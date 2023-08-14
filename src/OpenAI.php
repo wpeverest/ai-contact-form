@@ -83,8 +83,6 @@ class OpenAI {
 		// Checks with Everest Forms is installed.
 		if ( defined( 'EVF_VERSION' ) && version_compare( EVF_VERSION, '1.9.3', '>=' ) ) {
 
-			// Checks with Everest Forms Pro is installed.
-			if ( defined( 'EFP_VERSION' ) && version_compare( EFP_VERSION, '1.5.8', '>=' ) ) {
 				// Hooks.
 				add_action( 'everest_forms_init', array( $this, 'plugin_updater' ) );
 				add_action( 'everest_forms_init', array( $this, 'openai_init' ) );
@@ -94,10 +92,6 @@ class OpenAI {
 				// Enqueue Scripts.
 				add_action( 'everest_forms_frontend_output', array( $this, 'frontend_enqueue_scripts' ) );
 				add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
-
-			} else {
-				add_action( 'admin_notices', array( $this, 'everest_forms_pro_missing_notice' ) );
-			}
 		} else {
 			add_action( 'admin_notices', array( $this, 'everest_forms_missing_notice' ) );
 		}
@@ -278,13 +272,4 @@ class OpenAI {
 		echo '<div class="error notice is-dismissible"><p>' . sprintf( esc_html__( 'Everest Forms - OpenAI requires at least %s or later to work!', 'everest-forms-openai' ), '<a href="https://wpeverest.com/wordpress-plugins/everest-forms/" target="_blank">' . esc_html__( 'Everest Forms 1.9.3', 'everest-forms-openai' ) . '</a>' ) . '</p></div>';
 	}
 
-	/**
-	 * Everest Forms Pro fallback notice.
-	 *
-	 * @since 1.0.0
-	 */
-	public function everest_forms_pro_missing_notice() {
-		/* translators: %s: everest-forms-OpenAI version */
-		echo '<div class="error notice is-dismissible"><p>' . sprintf( esc_html__( 'Everest Forms - OpenAI depends on the last version of %s or later to work!', 'everest-forms-openai' ), '<a href="https://wpeverest.com/wordpress-plugins/everest-forms/" target="_blank">' . esc_html__( 'Everest Forms Pro 1.5.8', 'everest-forms-openai' ) . '</a>' ) . '</p></div>';
-	}
 }

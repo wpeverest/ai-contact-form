@@ -40,9 +40,6 @@ class Field extends \EVF_Form_Fields {
 					'label',
 					'meta',
 					'description',
-					'required',
-					'required_field_message_setting',
-					'required_field_message',
 				),
 			),
 			'advanced-options' => array(
@@ -174,8 +171,8 @@ class Field extends \EVF_Form_Fields {
 	 * @param array $field Field data.
 	 */
 	public function ai_type( $field ) {
-		$ai_type          = ! empty( $field['ai_type'] ) ? esc_attr( $field['ai_type'] ) : '';
-		$ai_format_label  = $this->field_element(
+		$ai_type         = ! empty( $field['ai_type'] ) ? esc_attr( $field['ai_type'] ) : 'hidden';
+		$ai_format_label = $this->field_element(
 			'label',
 			$field,
 			array(
@@ -185,20 +182,34 @@ class Field extends \EVF_Form_Fields {
 			),
 			false
 		);
-		$ai_format_select = $this->field_element(
-			'select',
-			$field,
-			array(
-				'slug'    => 'ai_type',
-				'value'   => $ai_type,
-				'options' => array(
-					'hidden'   => esc_html__( 'Hidden', 'everest-forms-openai' ),
-					'textarea' => esc_html__( 'Textarea', 'everest-forms-openai' ),
-					'html'     => esc_html__( 'HTML', 'everest-forms-openai' ),
+		if ( 'hidden' === $ai_type ) {
+			$ai_format_select = $this->field_element(
+				'select',
+				$field,
+				array(
+					'slug'    => 'ai_type',
+					'value'   => $ai_type,
+					'options' => array(
+						'hidden' => esc_html__( 'Hidden', 'everest-forms-openai' ),
+					),
 				),
-			),
-			false
-		);
+				false
+			);
+		} else {
+			$ai_format_select = $this->field_element(
+				'select',
+				$field,
+				array(
+					'slug'    => 'ai_type',
+					'value'   => $ai_type,
+					'options' => array(
+						'textarea' => esc_html__( 'Textarea', 'everest-forms-openai' ),
+						'html'     => esc_html__( 'HTML', 'everest-forms-openai' ),
+					),
+				),
+				false
+			);
+		}
 
 		$args = array(
 			'slug'    => 'ai_type',
