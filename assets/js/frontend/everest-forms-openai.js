@@ -49,12 +49,16 @@ var EverestFormsOpenAI =
       },
       evfChatBot: function ($this) {
         var chat = $this.val();
+		var loadingText = '<div class="loading-text">Please wait...</div>';
+		$(loadingText).insertAfter($this);
         var data = {
           action: "everest_forms_openai_chat_bot",
           security: everest_forms_openai_params.everest_forms_openai_nonce,
           chat: chat,
           form_id: everest_forms_openai_params.form_id,
         };
+		var loadingText = $('<p id="loading-text">Please wait...</p>');
+  		loadingText.appendTo('#content-container').show();
         $.ajax({
           url: everest_forms_openai_params.ajax_url,
           type: "POST",
@@ -74,7 +78,9 @@ var EverestFormsOpenAI =
             }
           })
           .fail(function () {})
-          .always(function (xhr) {});
+          .always(function (xhr) {
+			$(".loading-text").remove();
+		  });
       },
     };
 
