@@ -43,8 +43,8 @@ class Process {
 		$email['message']   = apply_filters( 'everest_forms_process_smart_tags', $email['message'], $form_data, $fields );
 		$emailMessage       = $email['message'];
 		$emailPrompt        = apply_filters( 'everest_forms_process_smart_tags', $email['message_ai_prompt'], $form_data, $fields );
-		$providers          = get_option( 'everest_forms_openai_settings', array() );
-		$api_key            = ! empty( $providers['api_key'] ) ? $providers['api_key'] : '';
+		$providers          = get_option( 'everest_forms_open_ai_api_key' );
+		$api_key            = ! empty( $providers ) ? $providers : '';
 		$response           = new API( $api_key );
 		$analysis_data      = array(
 			'messages'    => array(
@@ -78,8 +78,8 @@ class Process {
 		foreach ( $form_data['form_fields'] as $key => $field ) {
 			if ( array_key_exists( 'ai_input', $field ) ) {
 					$ai_prompt                    = $field['ai_input'];
-					$providers                    = get_option( 'everest_forms_openai_settings', array() );
-					$api_key                      = ! empty( $providers['api_key'] ) ? $providers['api_key'] : '';
+					$providers                    = get_option( 'everest_forms_open_ai_api_key' );
+					$api_key                      = ! empty( $providers ) ? $providers : '';
 					$response                     = new API( $api_key );
 					$data                         = array(
 						'messages'    => array(

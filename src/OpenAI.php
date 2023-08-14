@@ -95,9 +95,6 @@ class OpenAI {
 				add_action( 'everest_forms_frontend_output', array( $this, 'frontend_enqueue_scripts' ) );
 				add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 
-				// Smart tags.
-				add_filter( 'everest_forms_smart_tags', array( $this, 'email_smart_tags' ) );
-
 			} else {
 				add_action( 'admin_notices', array( $this, 'everest_forms_pro_missing_notice' ) );
 			}
@@ -106,21 +103,7 @@ class OpenAI {
 		}
 	}
 
-	/**
-	 * Email smart tags.
-	 *
-	 * @param mixed $tags Smart Tags.
-	 *
-	 * @since 1.0.0
-	 */
-	public function email_smart_tags( $tags ) {
-		return array_merge(
-			$tags,
-			array(
-				'ai_email_response' => esc_html__( 'AI Email Response', 'everest-forms-ai' ),
-			)
-		);
-	}
+
 
 	/**
 	 * Frontend Enqueue scripts.
@@ -203,7 +186,7 @@ class OpenAI {
 	 * @return array
 	 */
 	public function form_fields( $fields ) {
-		if ( defined( 'EVF_VERSION' ) && version_compare( EVF_VERSION, '1.7.8', '>=' ) ) {
+		if ( defined( 'EVF_VERSION' ) && version_compare( EVF_VERSION, '1.7.8', '>=' ) && ! empty( get_option( 'everest_forms_open_ai_api_key' ) ) ) {
 			$key = array_search( 'EVF_Field_AI', $fields, true );
 			if ( false !== $key ) {
 				$fields[ $key ] = 'EverestForms\OpenAI\Field\Field';

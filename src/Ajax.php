@@ -70,8 +70,8 @@ class Ajax {
 		$form_id    = isset( $_POST['form_id'] ) ? absint( $_POST['form_id'] ) : 0;
 		$form_data  = json_decode( evf()->form->get( $form_id )->post_content, true );
 		$form_field = is_array( $form_data ) && ! empty( $form_data['form_fields'] ) ? $form_data['form_fields'] : array();
-		$providers  = get_option( 'everest_forms_openai_settings', array() );
-		$api_key    = ! empty( $providers['api_key'] ) ? $providers['api_key'] : '';
+		$providers  = get_option( 'everest_forms_open_ai_api_key' );
+		$api_key    = ! empty( $providers ) ? $providers : '';
 		$chat_reply = isset( $_POST['chat'] ) ? $_POST['chat'] : ''; //phpcs:ignore.
 		$response   = new API( $api_key );
 		foreach ( $form_field as $field_id => $field_value ) {

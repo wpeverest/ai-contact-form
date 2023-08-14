@@ -29,6 +29,15 @@
 					$( '#everest-forms-field-option-row-' + id + '-ai_input' ).show();
 				}
 			});
+
+			$( '.evf-email-settings-wrapper' ).on( 'change', '.everest-forms-enable-email-prompt input', function () {
+				if( $( this ).is( ':checked' ) ) {
+					$( this ).closest( '.everest-forms-enable-email-prompt' ).next( '.evf-email-message-prompt' ).show();
+				} else {
+					$( this ).closest( '.everest-forms-enable-email-prompt' ).next( '.evf-email-message-prompt' ).hide();
+
+				}
+			});
 		},
 
 	};

@@ -9,6 +9,7 @@
  namespace EverestForms\OpenAI\Admin;
 
  use EverestForms\OpenAI\API\API;
+ use EVF_Admin_Settings;
  defined( 'ABSPATH' ) || exit;
 
 /**
@@ -64,6 +65,6 @@ class Settings extends \EVF_Settings_Page {
 	 */
 	public function save() {
 		$settings = $this->get_settings();
-		EVF_Admin_Settings::save_fields( $settings );
+		\EVF_Admin_Settings::save_fields( $settings );
 	}
 }
