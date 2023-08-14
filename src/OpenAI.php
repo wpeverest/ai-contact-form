@@ -10,9 +10,10 @@ namespace EverestForms\OpenAI;
 
 use EverestForms\OpenAI\API\API;
 use EverestForms\OpenAI\Process\Process;
+use EverestForms\OpenAI\Admin\Settings;
 
 /**
- * Main plugin class.F
+ * Main plugin class.
  *
  * @since 1.0.0
  */
@@ -76,7 +77,6 @@ class OpenAI {
 	public function __construct() {
 
 		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
-		add_filter( 'everest_forms_integrations', array( $this, 'add_integration' ) );
 		add_filter( 'plugin_action_links_' . plugin_basename( EVF_OPENAI_PLUGIN_FILE ), array( $this, 'plugin_action_links' ) );
 		add_filter( 'plugin_row_meta', array( $this, 'plugin_row_meta' ), 20, 2 );
 
@@ -89,6 +89,7 @@ class OpenAI {
 				add_action( 'everest_forms_init', array( $this, 'plugin_updater' ) );
 				add_action( 'everest_forms_init', array( $this, 'openai_init' ) );
 				add_filter( 'everest_forms_fields', array( $this, 'form_fields' ) );
+				add_filter( 'everest_forms_get_settings_pages', array( $this, 'load_settings_pages' ), 99, 1 );
 
 				// Enqueue Scripts.
 				add_action( 'everest_forms_frontend_output', array( $this, 'frontend_enqueue_scripts' ) );
@@ -242,11 +243,11 @@ class OpenAI {
 	/**
 	 * Register OpenAI integration.
 	 *
-	 * @param array $integrations List of integrations.
+	 * @param array $settings List of Settings.
 	 */
-	public function add_integration( $integrations ) {
-		$integrations[] = 'EverestForms\OpenAI\Admin\Settings';
-		return $integrations;
+	public function load_settings_pages( $settings ) {
+		$settings[] = new Settings();
+		return $settings;
 	}
 
 	/**

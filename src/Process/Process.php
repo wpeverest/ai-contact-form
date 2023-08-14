@@ -56,7 +56,7 @@ class Process {
 			'temperature' => 0.5,
 		);
 		$analysis_content   = $response->send_openai_request( 'chat/completions', $analysis_data );
-		$generated_analysis = isset( $analysis_content['choices'][0]['message']['content'] ) ? wp_kses_post( $analysis_content['choices'][0]['message']['content'] ) : '';
+		$generated_analysis = isset( $analysis_content['choices'][0]['message']['content'] ) ? wp_strip_all_tags( $analysis_content['choices'][0]['message']['content'] ) : '';
 		if ( preg_match( '/\{ai_email_response\}/', $emailMessage ) ) {
 			$email['message'] = str_replace( '{ai_email_response}', $generated_analysis, $emailMessage );
 		}
@@ -97,6 +97,4 @@ class Process {
 		}
 		return $form_fields;
 	}
-
-
 }
