@@ -29,7 +29,6 @@ class ComposerStaticInitc28617333b9a2d20338b1f8ab25b494f
         ),
         'P' => 
         array (
-            'Peast\\test\\' => 11,
             'Peast\\' => 6,
         ),
         'M' => 
@@ -44,7 +43,7 @@ class ComposerStaticInitc28617333b9a2d20338b1f8ab25b494f
         ),
         'E' => 
         array (
-            'EverestForms\\OpenAI\\' => 20,
+            'EverestForms\\AI\\' => 16,
         ),
         'D' => 
         array (
@@ -73,10 +72,6 @@ class ComposerStaticInitc28617333b9a2d20338b1f8ab25b494f
         array (
             0 => __DIR__ . '/..' . '/symfony/finder',
         ),
-        'Peast\\test\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/mck89/peast/test/Peast',
-        ),
         'Peast\\' => 
         array (
             0 => __DIR__ . '/..' . '/mck89/peast/lib/Peast',
@@ -97,7 +92,7 @@ class ComposerStaticInitc28617333b9a2d20338b1f8ab25b494f
         array (
             0 => __DIR__ . '/..' . '/gettext/gettext/src',
         ),
-        'EverestForms\\OpenAI\\' => 
+        'EverestForms\\AI\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),

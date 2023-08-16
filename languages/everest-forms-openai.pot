@@ -1,8 +1,8 @@
 # Copyright (C) 2023 WPEverest
-# This file is distributed under the same license as the Everest Forms - OpenAI plugin.
+# This file is distributed under the same license as the Everest Forms - AI plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Everest Forms - OpenAI 1.0.0\n"
+"Project-Id-Version: Everest Forms - AI 1.0.0\n"
 "Report-Msgid-Bugs-To: help@wpeverest.com\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12,10 +12,10 @@ msgstr ""
 "POT-Creation-Date: 2023-07-31T09:32:44+02:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
-"X-Domain: everest-forms-openai\n"
+"X-Domain: ai-contact-form\n"
 
 #. Plugin Name of the plugin
-msgid "Everest Forms - OpenAI"
+msgid "Everest Forms - AI"
 msgstr ""
 
 #. Plugin URI of the plugin
@@ -23,7 +23,7 @@ msgid "https://wpeverest.com/wordpress-plugins/everest-forms/openai/"
 msgstr ""
 
 #. Description of the plugin
-msgid "Everest Forms OpenAI addon allows you to add OpenAI into your forms."
+msgid "Everest Forms AI addon allows you to add AI into your forms."
 msgstr ""
 
 #. Author of the plugin
@@ -35,9 +35,9 @@ msgid "https://wpeverest.com"
 msgstr ""
 
 #. translators: 1: composer command. 2: plugin directory
-#: everest-forms-openai.php:46
-#: everest-forms-openai.php:65
-msgid "Your installation of the Everest Forms - OpenAI plugin is incomplete. Please run %1$s within the %2$s directory."
+#: ai-contact-form.php:46
+#: ai-contact-form.php:65
+msgid "Your installation of the Everest Forms - AI plugin is incomplete. Please run %1$s within the %2$s directory."
 msgstr ""
 
 #: src/Admin/Settings.php:33
@@ -136,46 +136,46 @@ msgstr ""
 msgid "HTML"
 msgstr ""
 
-#: src/OpenAI.php:43
+#: src/AI.php:43
 msgid "Cloning is forbidden."
 msgstr ""
 
-#: src/OpenAI.php:52
+#: src/AI.php:52
 msgid "Unserializing instances of this class is forbidden."
 msgstr ""
 
-#: src/OpenAI.php:241
-msgid "View Everest Forms OpenAI Settings"
+#: src/AI.php:241
+msgid "View Everest Forms AI Settings"
 msgstr ""
 
-#: src/OpenAI.php:241
+#: src/AI.php:241
 msgid "Settings"
 msgstr ""
 
-#: src/OpenAI.php:259
-msgid "View Everest Forms OpenAI documentation"
+#: src/AI.php:259
+msgid "View Everest Forms AI documentation"
 msgstr ""
 
-#: src/OpenAI.php:259
+#: src/AI.php:259
 msgid "Docs"
 msgstr ""
 
 #. translators: %s: everest-forms version
-#: src/OpenAI.php:275
-msgid "Everest Forms - OpenAI requires at least %s or later to work!"
+#: src/AI.php:275
+msgid "Everest Forms - AI requires at least %s or later to work!"
 msgstr ""
 
 #. translators: %s: everest-forms version
-#: src/OpenAI.php:275
+#: src/AI.php:275
 msgid "Everest Forms 1.9.3"
 msgstr ""
 
-#. translators: %s: everest-forms-OpenAI version
-#: src/OpenAI.php:285
-msgid "Everest Forms - OpenAI depends on the last version of %s or later to work!"
+#. translators: %s: everest-forms-AI version
+#: src/AI.php:285
+msgid "Everest Forms - AI depends on the last version of %s or later to work!"
 msgstr ""
 
-#. translators: %s: everest-forms-OpenAI version
-#: src/OpenAI.php:285
+#. translators: %s: everest-forms-AI version
+#: src/AI.php:285
 msgid "Everest Forms Pro 1.5.8"
 msgstr ""

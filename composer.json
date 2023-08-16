@@ -1,6 +1,6 @@
 {
   "name": "wpeverest/everest-forms-openai",
-  "description": "Wordpress Plugin for Everest Forms OpenAI.",
+  "description": "Wordpress Plugin for Everest Forms AI.",
   "homepage": "https://wpeverest.com",
   "type": "wordpress-plugin",
   "license": "GPL-2.0-or-later",
@@ -29,7 +29,7 @@
   },
   "autoload": {
   "psr-4": {
-  "EverestForms\\OpenAI\\": "src/"
+  "EverestForms\\AI\\": "src/"
   }
   },
   "scripts": {

@@ -1,14 +1,14 @@
 <?php
 /**
- * OpenAI Ajax.
+ * AI Ajax.
  *
- * @package EverestForms\OpenAI\Ajax
+ * @package EverestForms\AI\Ajax
  * @since   1.0.0
  */
 
-namespace EverestForms\OpenAI;
+namespace EverestForms\AI;
 
-use EverestForms\OpenAI\API\API;
+use EverestForms\AI\API\API;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -38,12 +38,12 @@ class Ajax {
 		);
 		foreach ( $ajax_events as $ajax_event => $nopriv ) {
 
-			add_action( 'wp_ajax_everest_forms_openai_' . $ajax_event, array( __CLASS__, $ajax_event ) );
+			add_action( 'wp_ajax_everest_forms_ai_' . $ajax_event, array( __CLASS__, $ajax_event ) );
 
 			if ( $nopriv ) {
 
 				add_action(
-					'wp_ajax_nopriv_everest_forms_openai_' . $ajax_event,
+					'wp_ajax_nopriv_everest_forms_ai_' . $ajax_event,
 					array(
 						__CLASS__,
 						$ajax_event,
@@ -59,45 +59,56 @@ class Ajax {
 	 * @since 1.0.0
 	 */
 	public static function chat_bot() {
-
-		if ( ! check_ajax_referer( 'everest_forms_openai', 'security', false ) ) {
-			wp_send_json_error(
-				array(
-					'message' => __( 'Nonce error, please reload.', 'everest-forms-openai' ),
-				)
-			);
-		}
-		$form_id    = isset( $_POST['form_id'] ) ? absint( $_POST['form_id'] ) : 0;
-		$form_data  = json_decode( evf()->form->get( $form_id )->post_content, true );
-		$form_field = is_array( $form_data ) && ! empty( $form_data['form_fields'] ) ? $form_data['form_fields'] : array();
-		$providers  = get_option( 'everest_forms_open_ai_api_key' );
-		$api_key    = ! empty( $providers ) ? $providers : '';
-		$chat_reply = isset( $_POST['chat'] ) ? $_POST['chat'] : ''; //phpcs:ignore.
-		$response   = new API( $api_key );
-		foreach ( $form_field as $field_id => $field_value ) {
-			if ( isset( $field_value['ai_chatbot'] ) && '1' === $field_value['ai_chatbot'] ) {
-				$field_type = isset( $field_value['ai_type'] ) ? $field_value['ai_type'] : 'html';
-				$field_id   = isset( $field_value['id'] ) ? $field_value['id'] : '';
-				$data       = array(
-					'messages'    => array(
-						array(
-							'role'    => 'user',
-							'content' => $chat_reply,
-						),
-					),
-					'temperature' => 0.5,
-				);
-				$content    = $response->send_openai_request( 'chat/completions', $data );
-				$message    = isset( $content['choices'][0]['message']['content'] ) ? wp_kses_post( $content['choices'][0]['message']['content'] ) : '';
-				wp_send_json_success(
+		try {
+			if ( ! check_ajax_referer( 'everest_forms_ai', 'security', false ) ) {
+				wp_send_json_error(
 					array(
-						'message'    => $message,
-						'field_type' => $field_type,
-						'field_id'   => $field_id,
+						'message' => __( 'Nonce error, please reload.', 'ai-contact-form' ),
 					)
 				);
 			}
+			$form_id    = isset( $_POST['form_id'] ) ? absint( $_POST['form_id'] ) : 0;
+			$form_data  = json_decode( evf()->form->get( $form_id )->post_content, true );
+			$form_field = is_array( $form_data ) && ! empty( $form_data['form_fields'] ) ? $form_data['form_fields'] : array();
+			$providers  = get_option( 'everest_forms_ai_api_key' );
+			$api_key    = ! empty( $providers ) ? $providers : '';
+		$chat_reply = isset( $_POST['chat'] ) ? $_POST['chat'] : ''; //phpcs:ignore.
+			$response   = new API( $api_key );
+			foreach ( $form_field as $field_id => $field_value ) {
+				if ( isset( $field_value['ai_chatbot'] ) && '1' === $field_value['ai_chatbot'] ) {
+					$field_type = isset( $field_value['ai_type'] ) ? $field_value['ai_type'] : 'html';
+					$field_id   = isset( $field_value['id'] ) ? $field_value['id'] : '';
+					$data       = array(
+						'messages'    => array(
+							array(
+								'role'    => 'user',
+								'content' => $chat_reply,
+							),
+						),
+						'temperature' => 0.5,
+					);
+					$content    = $response->send_openai_request( 'chat/completions', $data );
+					$message    = isset( $content['choices'][0]['message']['content'] ) ? wp_kses_post( $content['choices'][0]['message']['content'] ) : '';
+					wp_send_json_success(
+						array(
+							'message'    => $message,
+							'field_type' => $field_type,
+							'field_id'   => $field_id,
+						)
+					);
+				}
+			}
+		} catch ( \Exception $e ) {
+			evf_get_logger()->critical(
+				$e->getMessage(),
+				array( 'source' => 'form-submissiom' )
+			);
+			wp_send_json_error(
+				array(
+					'message' => $e->getMessage(),
+				)
+			);
 		}
-
 	}
+
 }

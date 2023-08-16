@@ -1,32 +1,32 @@
 <?php
 /**
- * Plugin Name: Everest Forms - OpenAI
- * Plugin URI: https://wpeverest.com/wordpress-plugins/everest-forms/openai/
- * Description: Everest Forms OpenAI addon allows you to add OpenAI into your forms.
+ * Plugin Name: Everest Forms - AI
+ * Plugin URI: https://everestforms.net/features/ai/
+ * Description: Everest Forms AI offers Chatbot functionality, Email Prompt assistance, and the capability for field analysis.
  * Version: 1.0.0
  * Author: WPEverest
  * Author URI: https://wpeverest.com
- * Text Domain: everest-forms-openai
+ * Text Domain: ai-contact-form
  * Domain Path: /languages/
- * Requires at least: 5.0
- * Requires PHP: 5.6.20
+ * Requires at least: 5.2
+ * Requires PHP: 7.2.0
  *
  * EVF requires at least: 1.8.6
  * EVF tested up to: 1.8.6
  *
- * @package EverestForms\OpenAI
+ * @package EverestForms\AI
  */
 
 defined( 'ABSPATH' ) || exit;
 
 // Define plugin version.
-if ( ! defined( 'EVF_OPENAI_VERSION' ) ) {
-	define( 'EVF_OPENAI_VERSION', '1.0.0' );
+if ( ! defined( 'EVF_AI_VERSION' ) ) {
+	define( 'EVF_AI_VERSION', '1.0.0' );
 }
 
 // Define plugin root file.
-if ( ! defined( 'EVF_OPENAI_PLUGIN_FILE' ) ) {
-	define( 'EVF_OPENAI_PLUGIN_FILE', __FILE__ );
+if ( ! defined( 'EVF_AI_PLUGIN_FILE' ) ) {
+	define( 'EVF_AI_PLUGIN_FILE', __FILE__ );
 }
 
 /**
@@ -43,7 +43,7 @@ if ( is_readable( $autoloader ) ) {
 		error_log( // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
 			sprintf(
 				/* translators: 1: composer command. 2: plugin directory */
-				esc_html__( 'Your installation of the Everest Forms - OpenAI plugin is incomplete. Please run %1$s within the %2$s directory.', 'everest-forms-openai' ),
+				esc_html__( 'Your installation of the Everest Forms - AI plugin is incomplete. Please run %1$s within the %2$s directory.', 'ai-contact-form' ),
 				'`composer install`',
 				'`' . esc_html( str_replace( ABSPATH, '', __DIR__ ) ) . '`'
 			)
@@ -62,7 +62,7 @@ if ( is_readable( $autoloader ) ) {
 					<?php
 					printf(
 						/* translators: 1: composer command. 2: plugin directory */
-						esc_html__( 'Your installation of the Everest Forms - OpenAI plugin is incomplete. Please run %1$s within the %2$s directory.', 'everest-forms-openai' ),
+						esc_html__( 'Your installation of the Everest Forms - AI plugin is incomplete. Please run %1$s within the %2$s directory.', 'ai-contact-form' ),
 						'<code>composer install</code>',
 						'<code>' . esc_html( str_replace( ABSPATH, '', __DIR__ ) ) . '</code>'
 					);
@@ -76,4 +76,4 @@ if ( is_readable( $autoloader ) ) {
 }
 
 // Initialize the plugin.
-add_action( 'plugins_loaded', array( 'EverestForms\\OpenAI\\OpenAI', 'instance' ) );
+add_action( 'plugins_loaded', array( 'EverestForms\\AI\\AI', 'instance' ) );

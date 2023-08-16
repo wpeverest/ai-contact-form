@@ -1,14 +1,14 @@
 <?php
 /**
- * OpenAI Field.
+ * AI Field.
  *
- * @package EverestForms\OpenAI\Field
+ * @package EverestForms\AI\Field
  * @since   1.0.0
  */
 
-namespace EverestForms\OpenAI\Field;
+namespace EverestForms\AI\Field;
 
-use EverestForms\OpenAI\API\API;
+use EverestForms\AI\API\API;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -29,7 +29,7 @@ class Field extends \EVF_Form_Fields {
 	 * Primary class constructor.
 	 */
 	public function __construct() {
-		$this->name     = esc_html__( 'AI', 'everest-forms-openai' );
+		$this->name     = esc_html__( 'AI', 'ai-contact-form' );
 		$this->type     = 'ai';
 		$this->icon     = 'evf-icon evf-icon-ai';
 		$this->order    = 240;
@@ -71,8 +71,8 @@ class Field extends \EVF_Form_Fields {
 			array(
 				'slug'    => 'ai_chatbot',
 				'value'   => $value,
-				'desc'    => esc_html__( 'Enable Chatbot', 'everest-forms-openai' ),
-				'tooltip' => esc_html__( 'Enable Chatbot', 'everest-forms-openai' ),
+				'desc'    => esc_html__( 'Enable Chatbot', 'ai-contact-form' ),
+				'tooltip' => esc_html__( 'Check this option to enable chatbot', 'ai-contact-form' ),
 			),
 			false
 		);
@@ -108,8 +108,8 @@ class Field extends \EVF_Form_Fields {
 			$field,
 			array(
 				'slug'    => 'ai_input',
-				'value'   => esc_html__( 'Prompt', 'everest-forms-openai' ),
-				'tooltip' => esc_html__( 'Please Enter', 'everest-forms-openai' ),
+				'value'   => esc_html__( 'Prompt', 'ai-contact-form' ),
+				'tooltip' => esc_html__( 'Enter a question or choose a field in the prompt to generate a response', 'ai-contact-form' ),
 			),
 			false
 		);
@@ -119,7 +119,7 @@ class Field extends \EVF_Form_Fields {
 			array(
 				'slug'        => 'ai_input',
 				'value'       => $ai_prompt,
-				'placeholder' => 'Please enter',
+				'placeholder' => 'Enter a question or choose a field in the prompt to generate a response',
 			),
 			false
 		);
@@ -138,8 +138,8 @@ class Field extends \EVF_Form_Fields {
 			$field,
 			array(
 				'slug'    => 'ai_chatbot_input',
-				'value'   => esc_html__( 'Filed Mapping', 'everest-forms-openai' ),
-				'tooltip' => esc_html__( 'Field Mapping', 'everest-forms-openai' ),
+				'value'   => esc_html__( 'Field Mapping', 'ai-contact-form' ),
+				'tooltip' => esc_html__( 'Select the field you want to map', 'ai-contact-form' ),
 			),
 			false
 		);
@@ -149,7 +149,7 @@ class Field extends \EVF_Form_Fields {
 			array(
 				'slug'        => 'ai_chatbot_input',
 				'value'       => $ai_chatbot_input,
-				'placeholder' => 'Please enter',
+				'placeholder' => 'Enter a question or choose a field in the prompt to generate a response.',
 			),
 			false
 		);
@@ -177,8 +177,8 @@ class Field extends \EVF_Form_Fields {
 			$field,
 			array(
 				'slug'    => 'ai_type',
-				'value'   => esc_html__( 'AI Type', 'everest-forms-open-ai' ),
-				'tooltip' => esc_html__( 'Please select the ai type.', 'everest-forms-open-ai' ),
+				'value'   => esc_html__( 'Field Type', 'everest-forms-open-ai' ),
+				'tooltip' => esc_html__( 'Please select the field type.', 'everest-forms-open-ai' ),
 			),
 			false
 		);
@@ -190,7 +190,7 @@ class Field extends \EVF_Form_Fields {
 					'slug'    => 'ai_type',
 					'value'   => $ai_type,
 					'options' => array(
-						'hidden' => esc_html__( 'Hidden', 'everest-forms-openai' ),
+						'hidden' => esc_html__( 'Hidden', 'ai-contact-form' ),
 					),
 				),
 				false
@@ -203,8 +203,8 @@ class Field extends \EVF_Form_Fields {
 					'slug'    => 'ai_type',
 					'value'   => $ai_type,
 					'options' => array(
-						'textarea' => esc_html__( 'Textarea', 'everest-forms-openai' ),
-						'html'     => esc_html__( 'HTML', 'everest-forms-openai' ),
+						'textarea' => esc_html__( 'Textarea', 'ai-contact-form' ),
+						'html'     => esc_html__( 'HTML', 'ai-contact-form' ),
 					),
 				),
 				false

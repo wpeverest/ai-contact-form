@@ -1,12 +1,12 @@
 <?php
 /**
- * EverestForms OpenAI API Class.
+ * EverestForms AI API Class.
  *
- * @package EverestForms\OpenAI\API\API
+ * @package EverestForms\AI\API\API
  * @since   1.0.0
  */
 
-namespace EverestForms\OpenAI\API;
+namespace EverestForms\AI\API;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -45,7 +45,7 @@ class API {
 	 * Create a new instance
 	 *
 	 * @since 1.0.0
-	 * @param string $api_key Your OpenAI API key.
+	 * @param string $api_key Your AI API key.
 	 */
 	public function __construct( $api_key ) {
 		$this->api_key = $api_key;
@@ -59,7 +59,7 @@ class API {
 	 * @param array  $data Data to be sent in the request.
 	 * @param int    $max_tokens Maximum number of tokens in the response.
 	 * @param string $method HTTP method.
-	 * @return array|bool Response from the OpenAI API.
+	 * @return array|bool Response from the AI API.
 	 */
 	public function send_openai_request( $path, $data = array(), $max_tokens = 3000, $method = 'POST' ) {
 

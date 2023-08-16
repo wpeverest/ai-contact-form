@@ -1,14 +1,14 @@
 <?php
 /**
- * OpenAI Process.
+ * AI Process.
  *
- * @package EverestForms\OpenAI\Process
+ * @package EverestForms\AI\Process
  * @since   1.0.0
  */
 
-namespace EverestForms\OpenAI\Process;
+namespace EverestForms\AI\Process;
 
-use EverestForms\OpenAI\API\API;
+use EverestForms\AI\API\API;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -40,29 +40,44 @@ class Process {
 	 * @param array $form_data Form Data object.
 	 */
 	public function process_message( $email, $fields, $entry, $form_data ) {
-		$email['message']   = apply_filters( 'everest_forms_process_smart_tags', $email['message'], $form_data, $fields );
-		$emailMessage       = $email['message'];
-		$emailPrompt        = apply_filters( 'everest_forms_process_smart_tags', $email['message_ai_prompt'], $form_data, $fields );
-		$providers          = get_option( 'everest_forms_open_ai_api_key' );
-		$api_key            = ! empty( $providers ) ? $providers : '';
-		$response           = new API( $api_key );
-		$analysis_data      = array(
-			'messages'    => array(
-				array(
-					'role'    => 'user',
-					'content' => "Analyze the following prompt and provide a suitable response.\n\nPrompt:\n\"" . $emailPrompt . '"',
+		try {
+			$enable_ai_prompt = isset( $email['enable_ai_prompt'] ) ? $email['enable_ai_prompt'] : 0;
+			if ( ! $enable_ai_prompt || empty( $email['message_ai_prompt'] ) ) {
+				return $email;
+			}
+			$email['message']   = apply_filters( 'everest_forms_process_smart_tags', $email['message'], $form_data, $fields );
+			$emailMessage       = isset( $email['message'] ) ? $email['message'] : '';
+			$emailPrompt        = apply_filters( 'everest_forms_process_smart_tags', $email['message_ai_prompt'], $form_data, $fields );
+			$providers          = get_option( 'everest_forms_ai_api_key' );
+			$api_key            = ! empty( $providers ) ? $providers : '';
+			$response           = new API( $api_key );
+			$analysis_data      = array(
+				'messages'    => array(
+					array(
+						'role'    => 'user',
+						'content' => "Analyze the following prompt and provide a suitable response.\n\nPrompt:\n\"" . $emailPrompt . '"',
+					),
 				),
-			),
-			'temperature' => 0.5,
-		);
-		$analysis_content   = $response->send_openai_request( 'chat/completions', $analysis_data );
-		$generated_analysis = isset( $analysis_content['choices'][0]['message']['content'] ) ? wp_strip_all_tags( $analysis_content['choices'][0]['message']['content'] ) : '';
-		if ( preg_match( '/\{ai_email_response\}/', $emailMessage ) ) {
-			$email['message'] = str_replace( '{ai_email_response}', $generated_analysis, $emailMessage );
+				'temperature' => 0.5,
+			);
+			$analysis_content   = $response->send_openai_request( 'chat/completions', $analysis_data );
+			$generated_analysis = isset( $analysis_content['choices'][0]['message']['content'] ) ? wp_strip_all_tags( $analysis_content['choices'][0]['message']['content'] ) : '';
+			if ( preg_match( '/\{ai_email_response\}/', $emailMessage ) ) {
+				$email['message'] = str_replace( '{ai_email_response}', $generated_analysis, $emailMessage );
+			}
+			return $email;
+		} catch ( \Exception $e ) {
+			evf_get_logger()->critical(
+				$e->getMessage(),
+				array( 'source' => 'form-submissiom' )
+			);
+			wp_send_json_error(
+				array(
+					'message' => $e->getMessage(),
+				)
+			);
 		}
-		return $email;
 	}
-
 
 	/**
 	 * Process form after validation.
@@ -75,10 +90,16 @@ class Process {
 	 * @return mixed $form_fields Form Fields.
 	 */
 	public function process_filter( $form_fields, $entry, $form_data ) {
-		foreach ( $form_data['form_fields'] as $key => $field ) {
-			if ( array_key_exists( 'ai_input', $field ) ) {
-					$ai_prompt                    = $field['ai_input'];
-					$providers                    = get_option( 'everest_forms_open_ai_api_key' );
+		try {
+			foreach ( $form_data['form_fields'] as $key => $field ) {
+				if ( array_key_exists( 'ai_input', $field ) ) {
+					$ai_prompt = $field['ai_input'];
+
+					if ( empty( $ai_prompt ) ) {
+						return $form_fields;
+					}
+
+					$providers                    = get_option( 'everest_forms_ai_api_key' );
 					$api_key                      = ! empty( $providers ) ? $providers : '';
 					$response                     = new API( $api_key );
 					$data                         = array(
@@ -91,10 +112,21 @@ class Process {
 						'temperature' => 0.5,
 					);
 					$content                      = $response->send_openai_request( 'chat/completions', $data );
-					$message                      = isset( $content['choices'][0]['message']['content'] ) ? esc_html( $content['choices'][0]['message']['content'] ) : '';
+					$message                      = isset( $content['choices'][0]['message']['content'] ) ? wp_kses_post( $content['choices'][0]['message']['content'] ) : '';
 					$form_fields[ $key ]['value'] = $message;
+				}
 			}
+			return $form_fields;
+		} catch ( \Exception $e ) {
+			evf_get_logger()->critical(
+				$e->getMessage(),
+				array( 'source' => 'form-submissiom' )
+			);
+			wp_send_json_error(
+				array(
+					'message' => $e->getMessage(),
+				)
+			);
 		}
-		return $form_fields;
 	}
 }

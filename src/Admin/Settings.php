@@ -2,13 +2,13 @@
 /**
  * Open AI Settings.
  *
- * @package EverestForms\OpenAI\Admin
+ * @package EverestForms\AI\Admin
  * @since   1.0.0
  */
 
- namespace EverestForms\OpenAI\Admin;
+ namespace EverestForms\AI\Admin;
 
- use EverestForms\OpenAI\API\API;
+ use EverestForms\AI\API\API;
  use EVF_Admin_Settings;
  defined( 'ABSPATH' ) || exit;
 
@@ -21,7 +21,7 @@ class Settings extends \EVF_Settings_Page {
 	 */
 	public function __construct() {
 		$this->id    = 'ai';
-		$this->label = esc_html__( 'AI', 'everest-forms-ai' );
+		$this->label = esc_html__( 'Everest Forms AI', 'ai-contact-form' );
 		parent::__construct();
 	}
 
@@ -35,18 +35,18 @@ class Settings extends \EVF_Settings_Page {
 			'everest_forms_geolocation_settings',
 			array(
 				array(
-					'title' => esc_html__( 'Everest Forms AI', 'everest-forms-ai' ),
+					'title' => esc_html__( 'Everest Forms AI', 'ai-contact-form' ),
 					'type'  => 'title',
 					/* translators: %1$s - Ai docs url */
-					'desc'  => sprintf( __( '<p>AI provides.</p><p><a href="%1$s" target="_blank">Read our documentation</a> for step-by-step instructions.</p>', 'everest-forms-geolocation' ), 'https://docs.wpeverest.com/everest-forms/docs/geolocation/' ),
+					'desc'  => sprintf( __( '<p>Everest Forms AI offers Chatbot functionality, Email Prompt assistance, and the capability for field analysis.</p><p>Get detailed documentation on  integrating<a href="%1$s" target="_blank"> Everest Forms AI.</a></p>', 'ai-contact-form' ), 'https://docs.wpeverest.com/everest-forms/docs/ai/' ),
 					'id'    => 'everest_forms_ai_options',
 				),
 				array(
-					'title'    => esc_html__( 'OpenAI API Key', 'everest-forms-ai' ),
+					'title'    => esc_html__( 'AI API Key', 'ai-contact-form' ),
 					'type'     => 'text',
 					/* translators: %1$s - Google API docs url */
-					'desc'     => sprintf( esc_html__( 'Please enter your API key of OpenAI. <a href="%1$s" target="_blank">Learn More</a>', 'everest-forms' ), esc_url( 'https://docs.wpeverest.com/everest-forms/docs/geolocation/' ) ),
-					'id'       => 'everest_forms_open_ai_api_key',
+					'desc'     => sprintf( esc_html__( 'Please enter your API key of AI. <a href="%1$s" target="_blank">Learn More</a>', 'everest-forms' ), esc_url( 'https://docs.wpeverest.com/everest-forms/docs/geolocation/' ) ),
+					'id'       => 'everest_forms_ai_api_key',
 					'default'  => '',
 					'desc_tip' => true,
 				),

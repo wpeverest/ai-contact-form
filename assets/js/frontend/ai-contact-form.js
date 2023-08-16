@@ -1,14 +1,14 @@
-/* global everest_forms_openai */
+/* global everest_forms_ai */
 
 "use strict";
 
 /**
- * Everest Forms OpenAI Frontend JS.
+ * Everest Forms AI Frontend JS.
  *
  * @since 1.0.0
  */
-var EverestFormsOpenAI =
-  window.EverestFormsOpenAI ||
+var EverestFormsAI =
+  window.EverestFormsAI ||
   (function (document, window, $) {
     const app = {
       /**
@@ -30,7 +30,7 @@ var EverestFormsOpenAI =
           }
         });
         $(document).ready(function () {
-          var fieldIds = everest_forms_openai_params.field_id;
+          var fieldIds = everest_forms_ai_params.field_id;
           var selectedElements = $();
 
           fieldIds.forEach(function (id) {
@@ -49,18 +49,16 @@ var EverestFormsOpenAI =
       },
       evfChatBot: function ($this) {
         var chat = $this.val();
-		var loadingText = '<div class="loading-text">Please wait...</div>';
+		var loadingText = '<span class="loading-text">...</span>';
 		$(loadingText).insertAfter($this);
         var data = {
-          action: "everest_forms_openai_chat_bot",
-          security: everest_forms_openai_params.everest_forms_openai_nonce,
+          action: "everest_forms_ai_chat_bot",
+          security: everest_forms_ai_params.everest_forms_ai_nonce,
           chat: chat,
-          form_id: everest_forms_openai_params.form_id,
+          form_id: everest_forms_ai_params.form_id,
         };
-		var loadingText = $('<p id="loading-text">Please wait...</p>');
-  		loadingText.appendTo('#content-container').show();
         $.ajax({
-          url: everest_forms_openai_params.ajax_url,
+          url: everest_forms_ai_params.ajax_url,
           type: "POST",
           data: data,
         })
@@ -88,4 +86,4 @@ var EverestFormsOpenAI =
   })(document, window, jQuery);
 
 // Initialize.
-EverestFormsOpenAI.init();
+EverestFormsAI.init();

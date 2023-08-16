@@ -2,22 +2,22 @@
 /**
  * Main plugin class.
  *
- * @package EverestForms\OpenAI
+ * @package EverestForms\AI
  * @since   1.0.0
  */
 
-namespace EverestForms\OpenAI;
+namespace EverestForms\AI;
 
-use EverestForms\OpenAI\API\API;
-use EverestForms\OpenAI\Process\Process;
-use EverestForms\OpenAI\Admin\Settings;
+use EverestForms\AI\API\API;
+use EverestForms\AI\Process\Process;
+use EverestForms\AI\Admin\Settings;
 
 /**
  * Main plugin class.
  *
  * @since 1.0.0
  */
-class OpenAI {
+class AI {
 
 	/**
 	 * The single instance of the class.
@@ -41,7 +41,7 @@ class OpenAI {
 	 * @since 1.0.0
 	 */
 	public function __clone() {
-		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cloning is forbidden.', 'everest-forms-openai' ), '1.0.0' );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cloning is forbidden.', 'ai-contact-form' ), '1.0.0' );
 	}
 
 	/**
@@ -50,7 +50,7 @@ class OpenAI {
 	 * @since 1.0.0
 	 */
 	public function __wakeup() {
-		_doing_it_wrong( __FUNCTION__, esc_html__( 'Unserializing instances of this class is forbidden.', 'everest-forms-openai' ), '1.0.0' );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Unserializing instances of this class is forbidden.', 'ai-contact-form' ), '1.0.0' );
 	}
 
 	/**
@@ -77,7 +77,7 @@ class OpenAI {
 	public function __construct() {
 
 		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
-		add_filter( 'plugin_action_links_' . plugin_basename( EVF_OPENAI_PLUGIN_FILE ), array( $this, 'plugin_action_links' ) );
+		add_filter( 'plugin_action_links_' . plugin_basename( EVF_AI_PLUGIN_FILE ), array( $this, 'plugin_action_links' ) );
 		add_filter( 'plugin_row_meta', array( $this, 'plugin_row_meta' ), 20, 2 );
 
 		// Checks with Everest Forms is installed.
@@ -88,6 +88,7 @@ class OpenAI {
 				add_action( 'everest_forms_init', array( $this, 'openai_init' ) );
 				add_filter( 'everest_forms_fields', array( $this, 'form_fields' ) );
 				add_filter( 'everest_forms_get_settings_pages', array( $this, 'load_settings_pages' ), 99, 1 );
+				add_filter( 'show_everest_forms_setting_message', array( $this, 'ai_authentication' ), 10, 1 );
 
 				// Enqueue Scripts.
 				add_action( 'everest_forms_frontend_output', array( $this, 'frontend_enqueue_scripts' ) );
@@ -97,7 +98,25 @@ class OpenAI {
 		}
 	}
 
-
+	/**
+	 * Authenticates using AI API key.
+	 *
+	 * @param bool $is_authenticated Current authentication status.
+	 *
+	 * @return bool Updated authentication status.
+	 */
+	public function ai_authentication( $is_authenticated ) {
+		$api_key  = get_option( 'everest_forms_ai_api_key' );
+		$response = new API( $api_key );
+		$res      = $response->authentication();
+		if ( isset( $res['code'] ) && 200 !== $res['code'] ) {
+			$error_msg        = isset( $res['message'] ) ? $res['message'] : '';
+			$is_authenticated = false;
+			\EVF_Admin_Settings::add_error( esc_html( $error_msg ) );
+			return $is_authenticated;
+		}
+		return $is_authenticated;
+	}
 
 	/**
 	 * Frontend Enqueue scripts.
@@ -119,16 +138,16 @@ class OpenAI {
 				}
 			}
 		}
-		wp_register_script( 'everest-forms-openai', plugins_url( "/assets/js/frontend/everest-forms-openai{$suffix}.js", EVF_OPENAI_PLUGIN_FILE ), array( 'jquery' ), EVF_OPENAI_VERSION, true );
-		wp_enqueue_script( 'everest-forms-openai' );
+		wp_register_script( 'ai-contact-form', plugins_url( "/assets/js/frontend/ai-contact-form{$suffix}.js", EVF_AI_PLUGIN_FILE ), array( 'jquery' ), EVF_AI_VERSION, true );
+		wp_enqueue_script( 'ai-contact-form' );
 		wp_localize_script(
-			'everest-forms-openai',
-			'everest_forms_openai_params',
+			'ai-contact-form',
+			'everest_forms_ai_params',
 			array(
-				'ajax_url'                   => admin_url( 'admin-ajax.php' ),
-				'everest_forms_openai_nonce' => wp_create_nonce( 'everest_forms_openai' ),
-				'field_id'                   => $field_ids,
-				'form_id'                    => $form_id,
+				'ajax_url'               => admin_url( 'admin-ajax.php' ),
+				'everest_forms_ai_nonce' => wp_create_nonce( 'everest_forms_ai' ),
+				'field_id'               => $field_ids,
+				'form_id'                => $form_id,
 			)
 		);
 	}
@@ -142,11 +161,11 @@ class OpenAI {
 		$suffix    = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
 		// Register admin scripts.
-		wp_register_script( 'everest-forms-openai-settings', plugins_url( "/assets/js/admin/admin{$suffix}.js", EVF_OPENAI_PLUGIN_FILE ), array( 'jquery' ), EVF_OPENAI_VERSION, true );
+		wp_register_script( 'ai-contact-form-settings', plugins_url( "/assets/js/admin/admin{$suffix}.js", EVF_AI_PLUGIN_FILE ), array( 'jquery' ), EVF_AI_VERSION, true );
 
 		// Admin scripts for EVF settings page.
 		if ( 'everest-forms_page_evf-builder' === $screen_id ) {
-			wp_enqueue_script( 'everest-forms-openai-settings' );
+			wp_enqueue_script( 'ai-contact-form-settings' );
 		}
 
 	}
@@ -162,11 +181,11 @@ class OpenAI {
 		if ( empty( self::$log ) ) {
 			self::$log = evf_get_logger();
 		}
-		self::$log->log( $level, $message, array( 'source' => 'openai' ) );
+		self::$log->log( $level, $message, array( 'source' => 'ai' ) );
 	}
 
 	/**
-	 * Init OpenAI - Logic begins.
+	 * Init AI - Logic begins.
 	 */
 	public function openai_init() {
 		new Process();
@@ -180,10 +199,10 @@ class OpenAI {
 	 * @return array
 	 */
 	public function form_fields( $fields ) {
-		if ( defined( 'EVF_VERSION' ) && version_compare( EVF_VERSION, '1.7.8', '>=' ) && ! empty( get_option( 'everest_forms_open_ai_api_key' ) ) ) {
+		if ( defined( 'EVF_VERSION' ) && version_compare( EVF_VERSION, '1.7.8', '>=' ) && ! empty( get_option( 'everest_forms_ai_api_key' ) ) ) {
 			$key = array_search( 'EVF_Field_AI', $fields, true );
 			if ( false !== $key ) {
-				$fields[ $key ] = 'EverestForms\OpenAI\Field\Field';
+				$fields[ $key ] = 'EverestForms\AI\Field\Field';
 			}
 		}
 
@@ -197,7 +216,7 @@ class OpenAI {
 	 */
 	public function plugin_updater() {
 		if ( class_exists( 'EVF_Plugin_Updater' ) ) {
-			return \EVF_Plugin_Updater::updates( EVF_OPENAI_PLUGIN_FILE, 226646, EVF_OPENAI_VERSION );
+			return \EVF_Plugin_Updater::updates( EVF_AI_PLUGIN_FILE, 226646, EVF_AI_VERSION );
 		}
 	}
 
@@ -207,18 +226,18 @@ class OpenAI {
 	 * Note: the first-loaded translation file overrides any following ones if the same translation is present.
 	 *
 	 * Locales found in:
-	 *      - WP_LANG_DIR/everest-forms-openai/everest-forms-openai-LOCALE.mo
-	 *      - WP_LANG_DIR/plugins/everest-forms-openai-LOCALE.mo
+	 *      - WP_LANG_DIR/ai-contact-form/ai-contact-form-LOCALE.mo
+	 *      - WP_LANG_DIR/plugins/ai-contact-form-LOCALE.mo
 	 */
 	public function load_plugin_textdomain() {
-		$locale = apply_filters( 'plugin_locale', get_locale(), 'everest-forms-openai' );
+		$locale = apply_filters( 'plugin_locale', get_locale(), 'ai-contact-form' );
 
-		load_textdomain( 'everest-forms-openai', WP_LANG_DIR . '/everest-forms-openai/everest-forms-openai-' . $locale . '.mo' );
-		load_plugin_textdomain( 'everest-forms-openai', false, plugin_basename( dirname( EVF_OPENAI_PLUGIN_FILE ) ) . '/languages' );
+		load_textdomain( 'ai-contact-form', WP_LANG_DIR . '/ai-contact-form/ai-contact-form-' . $locale . '.mo' );
+		load_plugin_textdomain( 'ai-contact-form', false, plugin_basename( dirname( EVF_AI_PLUGIN_FILE ) ) . '/languages' );
 	}
 
 	/**
-	 * Register OpenAI integration.
+	 * Register AI integration.
 	 *
 	 * @param array $settings List of Settings.
 	 */
@@ -235,7 +254,7 @@ class OpenAI {
 	 */
 	public function plugin_action_links( $actions ) {
 		$new_actions = array(
-			'settings' => '<a href="' . admin_url( 'admin.php?page=evf-settings&tab=integration&section=openai' ) . '" aria-label="' . esc_attr__( 'View Everest Forms OpenAI Settings', 'everest-forms-openai' ) . '">' . esc_html__( 'Settings', 'everest-forms-openai' ) . '</a>',
+			'settings' => '<a href="' . admin_url( 'admin.php?page=evf-settings&tab=integration&section=openai' ) . '" aria-label="' . esc_attr__( 'View Everest Forms AI Settings', 'ai-contact-form' ) . '">' . esc_html__( 'Settings', 'ai-contact-form' ) . '</a>',
 		);
 
 		return array_merge( $new_actions, $actions );
@@ -251,9 +270,9 @@ class OpenAI {
 	 * @return array
 	 */
 	public function plugin_row_meta( $plugin_meta, $plugin_file ) {
-		if ( plugin_basename( EVF_OPENAI_PLUGIN_FILE ) === $plugin_file ) {
+		if ( plugin_basename( EVF_AI_PLUGIN_FILE ) === $plugin_file ) {
 			$new_plugin_meta = array(
-				'docs' => '<a href="' . esc_url( 'https://docs.wpeverest.com/docs/everest-forms/everest-forms-add-ons/openai/' ) . '" aria-label="' . esc_attr__( 'View Everest Forms OpenAI documentation', 'everest-forms-openai' ) . '">' . esc_html__( 'Docs', 'everest-forms-openai' ) . '</a>',
+				'docs' => '<a href="' . esc_url( 'https://docs.wpeverest.com/docs/everest-forms/everest-forms-add-ons/openai/' ) . '" aria-label="' . esc_attr__( 'View Everest Forms AI documentation', 'ai-contact-form' ) . '">' . esc_html__( 'Docs', 'ai-contact-form' ) . '</a>',
 			);
 
 			return array_merge( $plugin_meta, $new_plugin_meta );
@@ -269,7 +288,7 @@ class OpenAI {
 	 */
 	public function everest_forms_missing_notice() {
 		/* translators: %s: everest-forms version */
-		echo '<div class="error notice is-dismissible"><p>' . sprintf( esc_html__( 'Everest Forms - OpenAI requires at least %s or later to work!', 'everest-forms-openai' ), '<a href="https://wpeverest.com/wordpress-plugins/everest-forms/" target="_blank">' . esc_html__( 'Everest Forms 1.9.3', 'everest-forms-openai' ) . '</a>' ) . '</p></div>';
+		echo '<div class="error notice is-dismissible"><p>' . sprintf( esc_html__( 'Everest Forms - AI requires at least %s or later to work!', 'ai-contact-form' ), '<a href="https://wpeverest.com/wordpress-plugins/everest-forms/" target="_blank">' . esc_html__( 'Everest Forms 1.9.3', 'ai-contact-form' ) . '</a>' ) . '</p></div>';
 	}
 
 }

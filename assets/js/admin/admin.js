@@ -1,13 +1,13 @@
 /**
- * EverestFormsOpenAI Admin JS
+ * EverestFormsAI Admin JS
  */
 (function ($) {
-	var EverestFormsOpenAI = {
+	var EverestFormsAI = {
         /**
          * Initialization.
          */
 		init: function () {
-			$(document).ready(EverestFormsOpenAI.ready);
+			$(document).ready(EverestFormsAI.ready);
 		},
 
 		/**
@@ -51,5 +51,5 @@
 		},
 
 	};
-	EverestFormsOpenAI.init();
+	EverestFormsAI.init();
 })(jQuery);
