@@ -302,7 +302,7 @@ class AI {
 			);
 			?>
 			<div class="notice-warning notice">
-				<p><?php esc_html_e( 'Everest Forms Pro requires the Everest Forms Plugin.', 'ai-contact-form' ); ?></p>
+				<p><?php esc_html_e( 'AI requires the Everest Forms Plugin.', 'ai-contact-form' ); ?></p>
 				<p><a href="<?php echo esc_url( $plugin_url ); ?>" class="button-primary"><?php esc_html_e( 'Click here to activate the plugin', 'ai-contact-form' ); ?></a></p>
 			</div>
 			<?php
