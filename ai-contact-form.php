@@ -11,8 +11,8 @@
  * Requires at least: 5.2
  * Requires PHP: 7.2.0
  *
- * EVF requires at least: 1.8.6
- * EVF tested up to: 1.8.6
+ * EVF requires at least: 2.0.3
+ * EVF tested up to: 2.0.3
  *
  * @package EverestForms\AI
  */

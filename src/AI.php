@@ -81,10 +81,9 @@ class AI {
 		add_filter( 'plugin_row_meta', array( $this, 'plugin_row_meta' ), 20, 2 );
 
 		// Checks with Everest Forms is installed.
-		if ( defined( 'EVF_VERSION' ) && version_compare( EVF_VERSION, '1.9.3', '>=' ) ) {
+		if ( defined( 'EVF_VERSION' ) && version_compare( EVF_VERSION, '2.0.2', '>=' ) ) {
 
 				// Hooks.
-				add_action( 'everest_forms_init', array( $this, 'plugin_updater' ) );
 				add_action( 'everest_forms_init', array( $this, 'openai_init' ) );
 				add_filter( 'everest_forms_fields', array( $this, 'form_fields' ) );
 				add_filter( 'everest_forms_get_settings_pages', array( $this, 'load_settings_pages' ), 99, 1 );
@@ -199,7 +198,7 @@ class AI {
 	 * @return array
 	 */
 	public function form_fields( $fields ) {
-		if ( defined( 'EVF_VERSION' ) && version_compare( EVF_VERSION, '1.7.8', '>=' ) && ! empty( get_option( 'everest_forms_ai_api_key' ) ) ) {
+		if ( defined( 'EVF_VERSION' ) && version_compare( EVF_VERSION, '2.0.3', '>=' ) && ! empty( get_option( 'everest_forms_ai_api_key' ) ) ) {
 			$key = array_search( 'EVF_Field_AI', $fields, true );
 			if ( false !== $key ) {
 				$fields[ $key ] = 'EverestForms\AI\Field\Field';
@@ -209,16 +208,7 @@ class AI {
 		return $fields;
 	}
 
-	/**
-	 * Plugin Updater.
-	 *
-	 * @since 1.0.0
-	 */
-	public function plugin_updater() {
-		if ( class_exists( 'EVF_Plugin_Updater' ) ) {
-			return \EVF_Plugin_Updater::updates( EVF_AI_PLUGIN_FILE, 226646, EVF_AI_VERSION );
-		}
-	}
+
 
 	/**
 	 * Load Localization files.
@@ -254,7 +244,7 @@ class AI {
 	 */
 	public function plugin_action_links( $actions ) {
 		$new_actions = array(
-			'settings' => '<a href="' . admin_url( 'admin.php?page=evf-settings&tab=integration&section=openai' ) . '" aria-label="' . esc_attr__( 'View Everest Forms AI Settings', 'ai-contact-form' ) . '">' . esc_html__( 'Settings', 'ai-contact-form' ) . '</a>',
+			'settings' => '<a href="' . admin_url( 'admin.php?page=evf-settings&tab=ai' ) . '" aria-label="' . esc_attr__( 'View Everest Forms AI Settings', 'ai-contact-form' ) . '">' . esc_html__( 'Settings', 'ai-contact-form' ) . '</a>',
 		);
 
 		return array_merge( $new_actions, $actions );
@@ -272,7 +262,7 @@ class AI {
 	public function plugin_row_meta( $plugin_meta, $plugin_file ) {
 		if ( plugin_basename( EVF_AI_PLUGIN_FILE ) === $plugin_file ) {
 			$new_plugin_meta = array(
-				'docs' => '<a href="' . esc_url( 'https://docs.wpeverest.com/docs/everest-forms/everest-forms-add-ons/openai/' ) . '" aria-label="' . esc_attr__( 'View Everest Forms AI documentation', 'ai-contact-form' ) . '">' . esc_html__( 'Docs', 'ai-contact-form' ) . '</a>',
+				'docs' => '<a href="' . esc_url( 'https://docs.everestforms.net/docs/ai/' ) . '" aria-label="' . esc_attr__( 'View Everest Forms AI documentation', 'ai-contact-form' ) . '">' . esc_html__( 'Docs', 'ai-contact-form' ) . '</a>',
 			);
 
 			return array_merge( $plugin_meta, $new_plugin_meta );
