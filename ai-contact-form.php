@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Everest Forms - AI
+ * Plugin Name: AI Contact Form For Everest Forms.
  * Plugin URI: https://everestforms.net/features/ai/
  * Description: Everest Forms AI offers Chatbot functionality, Email Prompt assistance, and the capability for field analysis.
  * Version: 1.0.0
