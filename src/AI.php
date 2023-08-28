@@ -189,6 +189,7 @@ class AI {
 	public function openai_init() {
 		new Process();
 		new Ajax();
+		GithubUpdater::setup();
 	}
 
 	/**
