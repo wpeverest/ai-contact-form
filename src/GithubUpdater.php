@@ -5,7 +5,6 @@ namespace EverestForms\AI;
 class GithubUpdater {
 
     private $file;
-    private $plugin;
     private $basename;
     private $active;
     private $username;
@@ -14,6 +13,7 @@ class GithubUpdater {
 
     public function __construct($file) {
         $this->file = $file;
+        $this->basename = plugin_basename($file);
         add_action('admin_init', array($this, 'initialize'));
     }
 
@@ -40,128 +40,82 @@ class GithubUpdater {
                 $this->repository
             );
 
-            $response = json_decode(
-                wp_remote_retrieve_body(wp_remote_get($request_uri)),
-                true
-            );
+            $response = wp_remote_get($request_uri);
 
-            if (is_array($response)) {
-                $response = current($response);
+            if (is_wp_error($response)) {
+                return;
             }
 
-            $this->github_response = $response;
+            $body = wp_remote_retrieve_body($response);
+            $this->github_response = json_decode($body, true);
+
+            if (is_array($this->github_response)) {
+                $this->github_response = current($this->github_response);
+            }
         }
     }
 
     public function initialize() {
-        add_filter(
-            'pre_set_site_transient_update_plugins',
-            array($this, 'modify_transient'),
-            10,
-            1
-        );
+        add_filter('pre_set_site_transient_update_plugins', array($this, 'modify_transient'), 10, 1);
         add_filter('plugins_api', array($this, 'plugin_popup'), 10, 3);
-        add_filter('upgrader_post_install', array($this, 'after_install'), 10, 3);
-        add_filter('upgrader_pre_download', array($this, 'download_package'));
     }
 
-	public function modify_transient( $transient ) {
+    public function modify_transient($transient) {
+        if (property_exists($transient, 'checked')) {
+            if ($checked = $transient->checked) {
+                $this->get_repository_info();
 
-		if ( property_exists( $transient, 'checked' ) ) {
+                if (!isset($this->github_response['tag_name'])) {
+                    return $transient;
+                }
 
-			if ( $checked = $transient->checked ) {
-				$this->get_repository_info();
+                $out_of_date = version_compare($this->github_response['tag_name'], $checked[$this->basename], 'gt');
+                if ($out_of_date) {
+                    $slug = current(explode('/', $this->basename));
 
-				if ( ! isset( $this->github_response['tag_name'] ) ) {
-					return;
-				}
-				$out_of_date = version_compare( $this->github_response['tag_name'], $checked[ $this->basename ], 'gt' );
+                    $plugin = array(
+                        'url'         => $this->github_response['html_url'],
+                        'slug'        => $slug,
+                        'package'     => $this->github_response['zipball_url'],
+                        'new_version' => $this->github_response['tag_name']
+                    );
 
-				if ( $out_of_date ) {
+                    $transient->response[$this->basename] = (object) $plugin;
+                }
+            }
+        }
 
-					$new_files = $this->github_response['zipball_url'];
-					$slug = current( explode( '/', $this->basename ) );
+        return $transient;
+    }
 
-					if ( ! isset( $this->plugin['PluginURI'] ) ) {
-						return;
-					}
-					$plugin = array(
-						'url'         => $this->plugin['PluginURI'],
-						'slug'        => $slug,
-						'package'     => $new_files,
-						'new_version' => $this->github_response['tag_name']
-					);
+    public function plugin_popup($result, $action, $args) {
+        if (!empty($args->slug) && $args->slug == current(explode('/', $this->basename))) {
+            $this->get_repository_info();
 
-					$transient->response[ $this->basename ] = (object) $plugin;
-				}
-			}
-		}
+            $plugin = array(
+                'name'              => $this->github_response['name'],
+                'slug'              => $this->basename,
+                'requires'          => '5.6',
+                'tested'            => '1000',
+                'rating'            => '100.0',
+                'num_ratings'       => '10823',
+                'downloaded'        => '14249',
+                'added'             => '2023-01-05',
+                'version'           => $this->github_response['tag_name'],
+                'author'            => $this->github_response['author']['login'],
+                'author_profile'    => $this->github_response['author']['html_url'],
+                'last_updated'      => $this->github_response['published_at'],
+                'homepage'          => $this->github_response['html_url'],
+                'short_description' => $this->github_response['body'],
+                'sections'          => array(
+                    'Description' => $this->github_response['body'],
+                ),
+                'download_link'     => $this->github_response['zipball_url']
+            );
 
-		return $transient;
-	}
+            return (object) $plugin;
+        }
 
-	public function plugin_popup( $result, $action, $args ) {
-
-		if ( ! empty( $args->slug ) ) {
-
-			if ( $args->slug == current( explode( '/', $this->basename ) ) ) {
-
-				$this->get_repository_info();
-
-
-				$plugin = array(
-					'name'              => $this->plugin['Name'],
-					'slug'              => $this->basename,
-					'requires'          => '5.6',
-					'tested'            => '1000',
-					'rating'            => '100.0',
-					'num_ratings'       => '10823',
-					'downloaded'        => '14249',
-					'added'             => '2023-01-05',
-					'version'           => $this->github_response['tag_name'],
-					'author'            => $this->plugin['AuthorName'],
-					'author_profile'    => $this->plugin['AuthorURI'],
-					'last_updated'      => $this->github_response['published_at'],
-					'homepage'          => $this->plugin['PluginURI'],
-					'short_description' => $this->plugin['Description'],
-					'sections'          => array(
-						'Description' => $this->plugin['Description'],
-						'Updates'     => $this->github_response['body'],
-					),
-					'download_link'     => $this->github_response['zipball_url']
-				);
-
-				return (object) $plugin;
-			}
-		}
-		return $result;
-	}
-
-	public function download_package( $args, $url ) {
-
-		if ( null !== $args['filename'] ) {
-			if ( $this->authorize_token ) {
-				$args = array_merge( $args, array( 'headers' => array( 'Authorization' => "token {$this->authorize_token}" ) ) );
-			}
-		}
-
-		remove_filter( 'http_request_args', array( $this, 'download_package' ) );
-
-		return $args;
-	}
-
-	public function after_install( $response, $hook_extra, $result ) {
-		global $wp_filesystem;
-
-		$install_directory = plugin_dir_path( $this->file );
-		$wp_filesystem->move( $result['destination'], $install_directory );
-		$result['destination'] = $install_directory;
-
-		if ( $this->active ) {
-			activate_plugin( $this->basename );
-		}
-
-		return $result;
-	}
-
+        return $result;
+    }
 }
