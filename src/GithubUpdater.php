@@ -105,7 +105,7 @@ class GithubUpdater {
                     return $transient;
                 }
 
-                $out_of_date = version_compare($this->github_response['tag_name'], $checked[$this->basename], 'gt');
+                $out_of_date = isset($this->github_response['tag_name']) && isset($checked[$this->basename]) ? version_compare($this->github_response['tag_name'], $checked[$this->basename], 'gt') : false;
                 if ($out_of_date) {
                     $slug = current(explode('/', $this->basename));
 

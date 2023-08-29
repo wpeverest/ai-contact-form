@@ -36,7 +36,8 @@
 					$('#everest-forms-field-option-' + id + '-ai_type').append([
 						$('<option>', {value: 'hidden', text: 'Hidden'}),
 					]);
-
+					('#everest-forms-field-option-' + id + '-ai_type')
+					.attr('disabled', 'disabled');
 				}
 			});
 

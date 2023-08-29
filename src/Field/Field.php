@@ -63,6 +63,11 @@ class Field extends \EVF_Form_Fields {
 
 	}
 
+	/**
+	 * AI chatbot.
+	 *
+	 * @param array $field Field data.
+	 */
 	public function ai_chatbot( $field ) {
 		$value             = ! empty( $field['ai_chatbot'] ) ? esc_attr( $field['ai_chatbot'] ) : '';
 		$ai_prompt_chatbot = $this->field_element(
