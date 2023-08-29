@@ -21,7 +21,7 @@ class Settings extends \EVF_Settings_Page {
 	 */
 	public function __construct() {
 		$this->id    = 'ai';
-		$this->label = esc_html__( 'AI', 'ai-contact-form' );
+		$this->label = esc_html__( 'OpenAI', 'ai-contact-form' );
 		parent::__construct();
 	}
 
@@ -38,7 +38,7 @@ class Settings extends \EVF_Settings_Page {
 					'title' => esc_html__( 'OpenAI', 'ai-contact-form' ),
 					'type'  => 'title',
 					/* translators: %1$s - Ai docs url */
-					'desc'  => sprintf( __( '<p>Everest Forms AI offers Chatbot functionality, Email Prompt assistance, and the capability for field analysis.</p><p>Get detailed documentation on  integrating<a href="%1$s" target="_blank"> AI.</a></p>', 'ai-contact-form' ), 'https://docs.everestforms.net/docs/ai/' ),
+					'desc'  => sprintf( __( '<p>Everest Forms AI offers Chatbot functionality, Email Prompt assistance, and the capability for field analysis.</p><p>Get detailed documentation on  integrating<a href="%1$s" target="_blank"> OpenAI.</a></p>', 'ai-contact-form' ), 'https://docs.everestforms.net/docs/ai/' ),
 					'id'    => 'everest_forms_ai_options',
 				),
 				array(
