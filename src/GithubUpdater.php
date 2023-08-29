@@ -11,20 +11,40 @@ class GithubUpdater {
     private $repository;
     private $github_response;
 
+	/**
+     * Constructor.
+     *
+     * @since 1.0.0
+     */
     public function __construct($file) {
         $this->file = $file;
         $this->basename = plugin_basename($file);
         add_action('admin_init', array($this, 'initialize'));
     }
 
+	/**
+     * Set the GitHub username.
+     *
+     * @since 1.0.0
+     */
     public function set_username($username) {
         $this->username = $username;
     }
 
+	/**
+     * Set the GitHub repository.
+     *
+     * @since 1.0.0
+     */
     public function set_repository($repository) {
         $this->repository = $repository;
     }
 
+	/**
+     * Static setup method to initialize the updater.
+     *
+     * @since 1.0.0
+     */
     public static function setup() {
         $updater = new self(EVF_AI_PLUGIN_FILE);
         $updater->set_username('wpeverest');
@@ -32,6 +52,11 @@ class GithubUpdater {
         $updater->initialize();
     }
 
+	 /**
+     * Fetch repository info from GitHub API.
+     *
+     * @since 1.0.0
+     */
     private function get_repository_info() {
         if (is_null($this->github_response)) {
             $request_uri = sprintf(
@@ -55,11 +80,22 @@ class GithubUpdater {
         }
     }
 
+
+    /**
+     * Initialize hooks.
+     *
+     * @since 1.0.0
+     */
     public function initialize() {
         add_filter('pre_set_site_transient_update_plugins', array($this, 'modify_transient'), 10, 1);
         add_filter('plugins_api', array($this, 'plugin_popup'), 10, 3);
     }
 
+	 /**
+     * Modify the update transient for the plugin.
+     *
+     * @since 1.0.0
+     */
     public function modify_transient($transient) {
         if (property_exists($transient, 'checked')) {
             if ($checked = $transient->checked) {
@@ -88,6 +124,11 @@ class GithubUpdater {
         return $transient;
     }
 
+	/**
+     * Plugin information for the admin popup.
+     *
+     * @since 1.0.0
+     */
     public function plugin_popup($result, $action, $args) {
         if (!empty($args->slug) && $args->slug == current(explode('/', $this->basename))) {
             $this->get_repository_info();
