@@ -1,21 +1,21 @@
 # Copyright (C) 2023 WPEverest
-# This file is distributed under the same license as the Everest Forms - AI plugin.
+# This file is distributed under the same license as the AI Contact Form. plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Everest Forms - AI 1.0.0\n"
+"Project-Id-Version: AI Contact Form. 1.0.0\n"
 "Report-Msgid-Bugs-To: help@wpeverest.com\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-08-17T06:42:49+02:00\n"
+"POT-Creation-Date: 2023-08-29T07:03:26+02:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.6.0\n"
+"X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: ai-contact-form\n"
 
 #. Plugin Name of the plugin
-msgid "Everest Forms - AI"
+msgid "AI Contact Form."
 msgstr ""
 
 #. Plugin URI of the plugin
@@ -42,22 +42,21 @@ msgstr ""
 
 #: src/Admin/Settings.php:24
 #: src/Admin/Settings.php:38
-#: src/Field/Field.php:32
-msgid "AI"
+msgid "OpenAI"
 msgstr ""
 
 #. translators: %1$s - Ai docs url
 #: src/Admin/Settings.php:41
-msgid "<p>Everest Forms AI offers Chatbot functionality, Email Prompt assistance, and the capability for field analysis.</p><p>Get detailed documentation on  integrating<a href=\"%1$s\" target=\"_blank\"> Everest Forms AI.</a></p>"
+msgid "<p>Everest Forms AI offers Chatbot functionality, Email Prompt assistance, and the capability for field analysis.</p><p>Get detailed documentation on  integrating<a href=\"%1$s\" target=\"_blank\"> OpenAI.</a></p>"
 msgstr ""
 
 #: src/Admin/Settings.php:45
-msgid "AI API Key"
+msgid "OpenAI API Key"
 msgstr ""
 
 #. translators: %1$s - Google API docs url
 #: src/Admin/Settings.php:48
-msgid "Please enter your API key of AI. <a href=\"%1$s\" target=\"_blank\">Learn More</a>"
+msgid "Please enter your API key of OpenAI. <a href=\"%1$s\" target=\"_blank\">Learn More</a>"
 msgstr ""
 
 #: src/AI.php:44
@@ -68,34 +67,36 @@ msgstr ""
 msgid "Unserializing instances of this class is forbidden."
 msgstr ""
 
-#: src/AI.php:257
+#: src/AI.php:248
 msgid "View Everest Forms AI Settings"
 msgstr ""
 
-#: src/AI.php:257
+#: src/AI.php:248
 msgid "Settings"
 msgstr ""
 
-#: src/AI.php:275
+#: src/AI.php:266
 msgid "View Everest Forms AI documentation"
 msgstr ""
 
-#: src/AI.php:275
+#: src/AI.php:266
 msgid "Docs"
 msgstr ""
 
-#. translators: %s: everest-forms version
-#: src/AI.php:291
-msgid "Everest Forms - AI requires at least %s or later to work!"
+#: src/AI.php:296
+msgid "AI requires the Everest Forms Plugin."
 msgstr ""
 
-#. translators: %s: everest-forms version
-#: src/AI.php:291
-msgid "Everest Forms 1.9.3"
+#: src/AI.php:297
+msgid "Click here to activate the plugin"
 msgstr ""
 
 #: src/Ajax.php:66
 msgid "Nonce error, please reload."
+msgstr ""
+
+#: src/Field/Field.php:32
+msgid "AI"
 msgstr ""
 
 #: src/Field/Field.php:74
