@@ -26,5 +26,5 @@ To install this plugin, please refer to the guide here: [http://codex.wordpress.
 
 == Changelog ==
 
-= 1.0.0 - 21-08-2023 =
+= 1.0.0 - 30-08-2023 =
 * Initial release.

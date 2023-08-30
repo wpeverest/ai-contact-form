@@ -9,9 +9,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-08-29T07:03:26+02:00\n"
+"POT-Creation-Date: 2023-08-30T08:43:39+02:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.8.1\n"
+"X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: ai-contact-form\n"
 
 #. Plugin Name of the plugin
@@ -67,27 +67,27 @@ msgstr ""
 msgid "Unserializing instances of this class is forbidden."
 msgstr ""
 
-#: src/AI.php:248
+#: src/AI.php:261
 msgid "View Everest Forms AI Settings"
 msgstr ""
 
-#: src/AI.php:248
+#: src/AI.php:261
 msgid "Settings"
 msgstr ""
 
-#: src/AI.php:266
+#: src/AI.php:279
 msgid "View Everest Forms AI documentation"
 msgstr ""
 
-#: src/AI.php:266
+#: src/AI.php:279
 msgid "Docs"
 msgstr ""
 
-#: src/AI.php:296
+#: src/AI.php:309
 msgid "AI requires the Everest Forms Plugin."
 msgstr ""
 
-#: src/AI.php:297
+#: src/AI.php:310
 msgid "Click here to activate the plugin"
 msgstr ""
 
@@ -99,38 +99,41 @@ msgstr ""
 msgid "AI"
 msgstr ""
 
-#: src/Field/Field.php:74
+#: src/Field/Field.php:79
 msgid "Enable Chatbot"
 msgstr ""
 
-#: src/Field/Field.php:75
-msgid "Check this option to enable chatbot"
+#. translators: %1$s -  ai settings docs url
+#: src/Field/Field.php:81
+msgid "Check this option to enable chatbot. <a href=\"%1$s\" target=\"_blank\">Learn More</a>"
 msgstr ""
 
-#: src/Field/Field.php:111
+#: src/Field/Field.php:117
 msgid "Prompt"
 msgstr ""
 
-#: src/Field/Field.php:112
-msgid "Enter a question or choose a field in the prompt to generate a response"
+#. translators: %1$s -  ai settings docs url
+#: src/Field/Field.php:119
+msgid "Enter a question or choose a field in the prompt to generate a response. <a href=\"%1$s\" target=\"_blank\">Learn More</a>"
 msgstr ""
 
-#: src/Field/Field.php:141
+#: src/Field/Field.php:148
 msgid "Field Mapping"
 msgstr ""
 
-#: src/Field/Field.php:142
-msgid "Select the field you want to map"
+#. translators: %1$s -  ai settings docs url
+#: src/Field/Field.php:150
+msgid "Click on <> and map the field created for the question input. <a href=\"%1$s\" target=\"_blank\">Learn More</a>"
 msgstr ""
 
-#: src/Field/Field.php:193
+#: src/Field/Field.php:201
 msgid "Hidden"
 msgstr ""
 
-#: src/Field/Field.php:206
+#: src/Field/Field.php:214
 msgid "Textarea"
 msgstr ""
 
-#: src/Field/Field.php:207
+#: src/Field/Field.php:215
 msgid "HTML"
 msgstr ""

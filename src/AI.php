@@ -85,6 +85,8 @@ class AI {
 
 				// Hooks.
 				add_action( 'everest_forms_init', array( $this, 'openai_init' ) );
+				// Hooks.
+				add_action( 'everest_forms_init', array( $this, 'plugin_updater' ) );
 				add_filter( 'everest_forms_fields', array( $this, 'form_fields' ) );
 				add_filter( 'everest_forms_get_settings_pages', array( $this, 'load_settings_pages' ), 99, 1 );
 				add_filter( 'show_everest_forms_setting_message', array( $this, 'ai_authentication' ), 10, 1 );
@@ -149,6 +151,17 @@ class AI {
 				'form_id'                => $form_id,
 			)
 		);
+	}
+
+		/**
+	 * Plugin Updater.
+	 *
+	 * @since 1.0.0
+	 */
+	public function plugin_updater() {
+		if ( class_exists( 'EVF_Plugin_Updater' ) ) {
+			return \EVF_Plugin_Updater::updates( EVF_AI_PLUGIN_FILE, 252599, EVF_AI_VERSION );
+		}
 	}
 
 	/**
