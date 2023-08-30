@@ -8,6 +8,18 @@
          */
 		init: function () {
 			$(document).ready(EverestFormsAI.ready);
+
+			$(document).ready(function() {
+				var ai_chatbot_checkbox = $( '.everest-forms-field-option-row-ai_chatbot input[type="checkbox"]' );
+				ai_chatbot_checkbox.each(function(index, el) {
+
+				if( $(this).is(':checked') ) {
+					$('.everest-forms-field-option-row-ai_type select').prop('disabled', false);
+				} else {
+					$('.everest-forms-field-option-row-ai_type select').prop('disabled', true);
+				}
+			});
+			});
 		},
 
 		/**
@@ -29,15 +41,16 @@
 						$('<option>', {value: 'textarea', text: 'TextArea'}),
 						$('<option>', {value: 'html', text: 'HTML'}),
 					]);
+					$('#everest-forms-field-option-' + id + '-ai_type').prop('disabled', false);
 				} else {
-					$( '#everest-forms-field-option-row-' + id + '-ai_chatbot_input' ).hide();
-					$( '#everest-forms-field-option-row-' + id + '-ai_input' ).show();
+					$('#everest-forms-field-option-row-' + id + '-ai_chatbot_input').hide();
+					$('#everest-forms-field-option-row-' + id + '-ai_input').show();
+
 					$('#everest-forms-field-option-' + id + '-ai_type').empty();
 					$('#everest-forms-field-option-' + id + '-ai_type').append([
 						$('<option>', {value: 'hidden', text: 'Hidden'}),
 					]);
-					('#everest-forms-field-option-' + id + '-ai_type')
-					.attr('disabled', 'disabled');
+					$('#everest-forms-field-option-' + id + '-ai_type').prop('disabled', true);
 				}
 			});
 
