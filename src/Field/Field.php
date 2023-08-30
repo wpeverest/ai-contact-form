@@ -147,7 +147,7 @@ class Field extends \EVF_Form_Fields {
 				'slug'    => 'ai_chatbot_input',
 				'value'   => esc_html__( 'Field Mapping', 'ai-contact-form' ),
 				/* translators: %1$s -  ai settings docs url */
-				'tooltip' => sprintf( esc_html__( 'Click on <> and map the field for your question. <a href="%1$s" target="_blank">Learn More</a>', 'ai-contact-form' ), esc_url( 'https://docs.everestforms.net/docs/ai/#5-toc-title' ) ),
+				'tooltip' => sprintf( esc_html__( 'Click on <> and map the field created for the question input. <a href="%1$s" target="_blank">Learn More</a>', 'ai-contact-form' ), esc_url( 'https://docs.everestforms.net/docs/ai/#5-toc-title' ) ),
 			),
 			false
 		);
