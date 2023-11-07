@@ -71,8 +71,8 @@ class Ajax {
 			$form_data  = json_decode( evf()->form->get( $form_id )->post_content, true );
 			$form_field = is_array( $form_data ) && ! empty( $form_data['form_fields'] ) ? $form_data['form_fields'] : array();
 			$providers  = get_option( 'everest_forms_ai_api_key' );
-			$api_key    = ! empty( $providers ) ? $providers : '';
-			$chat_reply = isset( $_POST['chat'] ) ? sanitize_text_field( $_POST['chat'] ) : ''; 
+			$api_key    = ! empty( $providers ) ? sanitize_text_field( $providers ) : '';
+			$chat_reply = isset( $_POST['chat'] ) ? sanitize_text_field( $_POST['chat'] ) : '';
 			$response   = new API( $api_key );
 			foreach ( $form_field as $field_id => $field_value ) {
 				if ( isset( $field_value['ai_chatbot'] ) && '1' === $field_value['ai_chatbot'] ) {

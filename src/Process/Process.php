@@ -45,26 +45,26 @@ class Process {
 			if ( ! $enable_ai_prompt || empty( $email['message_ai_prompt'] ) ) {
 				return $email;
 			}
-			$email['message']   = apply_filters( 'everest_forms_process_smart_tags', $email['message'], $form_data, $fields );
+			$email['message']   = apply_filters( 'everest_forms_process_smart_tags', esc_html( $email['message'] ), $form_data, $fields );
 			$emailMessage       = isset( $email['message'] ) ? $email['message'] : '';
-			$emailPrompt        = apply_filters( 'everest_forms_process_smart_tags', $email['message_ai_prompt'], $form_data, $fields );
+			$emailPrompt        = apply_filters( 'everest_forms_process_smart_tags', esc_html( $email['message_ai_prompt'] ), $form_data, $fields );
 			$providers          = get_option( 'everest_forms_ai_api_key' );
-			$api_key            = ! empty( $providers ) ? $providers : '';
+			$api_key            = ! empty( $providers ) ? sanitize_text_field( $providers ) : '';
 			$response           = new API( $api_key );
 			$analysis_data      = array(
 				'messages'    => array(
 					array(
 						'role'    => 'user',
-						'content' => "Analyze the following prompt and provide a suitable response.\n\nPrompt:\n\"" . $emailPrompt . '"',
+						'content' => "Analyze the following prompt and provide a suitable response.\n\nPrompt:\n\"" . esc_html( $emailPrompt ) . '"',
 					),
 				),
 				'temperature' => 0.5,
 			);
 			$analysis_content   = $response->send_openai_request( 'chat/completions', $analysis_data );
-			$generated_analysis = isset( $analysis_content['choices'][0]['message']['content'] ) ? wp_strip_all_tags( $analysis_content['choices'][0]['message']['content'] ) : '';
+			$generated_analysis = isset( $analysis_content['choices'][0]['message']['content'] ) ? wp_strip_all_tags( wp_kses_post( $analysis_content['choices'][0]['message']['content'] ) ) : '';
 			if ( preg_match( '/\{ai_email_response\}/', $emailMessage ) ) {
-				$email['message'] = str_replace( '{ai_email_response}', $generated_analysis, $emailMessage );
-			}
+                $email['message'] = str_replace( '{ai_email_response}', esc_html( $generated_analysis ), $emailMessage );
+            }
 			return $email;
 		} catch ( \Exception $e ) {
 			evf_get_logger()->critical(
@@ -100,19 +100,19 @@ class Process {
 					}
 
 					$providers                    = get_option( 'everest_forms_ai_api_key' );
-					$api_key                      = ! empty( $providers ) ? $providers : '';
+					$api_key                      = ! empty( $providers ) ? sanitize_text_field( $providers ) : '';
 					$response                     = new API( $api_key );
 					$data                         = array(
 						'messages'    => array(
 							array(
 								'role'    => 'user',
-								'content' => apply_filters( 'everest_forms_process_smart_tags', $ai_prompt, $form_data, $form_fields ),
+								'content' => apply_filters( 'everest_forms_process_smart_tags', esc_html( $ai_prompt ), $form_data, $form_fields ),
 							),
 						),
 						'temperature' => 0.5,
 					);
 					$content                      = $response->send_openai_request( 'chat/completions', $data );
-					$message                      = isset( $content['choices'][0]['message']['content'] ) ? wp_kses_post( $content['choices'][0]['message']['content'] ) : '';
+					$message                      = isset( $content['choices'][0]['message']['content'] ) ? wp_strip_all_tags( wp_kses_post( $content['choices'][0]['message']['content'] ) ) : '';
 					$form_fields[ $key ]['value'] = $message;
 				}
 			}
