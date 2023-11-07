@@ -6,7 +6,7 @@
  * @since   1.0.0
  */
 
-namespace EverestForms\AI;
+namespace EverestForms\AI\Ajax;
 
 use EverestForms\AI\API\API;
 
@@ -72,7 +72,7 @@ class Ajax {
 			$form_field = is_array( $form_data ) && ! empty( $form_data['form_fields'] ) ? $form_data['form_fields'] : array();
 			$providers  = get_option( 'everest_forms_ai_api_key' );
 			$api_key    = ! empty( $providers ) ? $providers : '';
-		$chat_reply = isset( $_POST['chat'] ) ? $_POST['chat'] : ''; //phpcs:ignore.
+			$chat_reply = isset( $_POST['chat'] ) ? sanitize_text_field( $_POST['chat'] ) : ''; 
 			$response   = new API( $api_key );
 			foreach ( $form_field as $field_id => $field_value ) {
 				if ( isset( $field_value['ai_chatbot'] ) && '1' === $field_value['ai_chatbot'] ) {
