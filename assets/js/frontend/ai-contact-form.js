@@ -67,6 +67,7 @@ var EverestFormsAI =
               var targetFieldName =
                 "everest_forms[form_fields][" + xhr.data.field_id + "]";
               if (xhr.data.field_type === "html") {
+				console.log(xhr.data.message);
                 $('div[name="' + targetFieldName + '"]').text(xhr.data.message);
               } else if (xhr.data.field_type === "textarea") {
                 $('textarea[name="' + targetFieldName + '"]').val(

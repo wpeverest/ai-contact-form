@@ -283,13 +283,13 @@ class Field extends \EVF_Form_Fields {
 			case 'hidden':
 				printf(
 					'<input type="hidden" %s>',
-					evf_html_attributes( $primary['id'], $primary['class'], $primary['data'], $primary['attr'] )
+					$this->ai_html_attributes( $primary['id'], $primary['class'], $primary['data'], $primary['attr'] )
 				);
 				break;
 			case 'textarea':
 				printf(
 					'<textarea %s %s >%s</textarea>',
-					evf_html_attributes( $primary['id'], $primary['class'], $primary['data'], $primary['attr'] ),
+					$this->ai_html_attributes( $primary['id'], $primary['class'], $primary['data'], $primary['attr'] ),
 					esc_attr( $primary['required'] ),
 					esc_html( $value )
 				);
@@ -297,13 +297,97 @@ class Field extends \EVF_Form_Fields {
 			case 'html':
 				printf(
 					'<div %s>%s</div>',
-					evf_html_attributes( $primary['id'], $primary['class'], $primary['data'], $primary['attr'] ),
+					$this->ai_html_attributes( $primary['id'], $primary['class'], $primary['data'], $primary['attr'] ),
 					esc_html( $value )
 				);
 				break;
 		}
 	}
 
+	/**
+	 * Formats, sanitizes, and returns/echos HTML element ID, classes, attributes,
+	 *
+	 * @param string $id    Element ID.
+	 * @param array  $class Class args.
+	 * @param array  $datas Data args.
+	 * @param array  $atts  Attributes.
+	 * @param bool   $echo  True to echo else return.
+	 *
+	 * @return string
+	 */
+	private function ai_html_attributes( $id = '', $class = array(), $datas = array(), $atts = array(), $echo = false ) {
+		$id    = trim( $id );
+		$parts = array();
 
+		if ( ! empty( $id ) ) {
+			$id = sanitize_html_class( $id );
+			if ( ! empty( $id ) ) {
+				$parts[] = 'id="' . $id . '"';
+			}
+		}
+
+		if ( ! empty( $class ) ) {
+			$class = $this->ai_sanitize_classes( $class, true );
+			if ( ! empty( $class ) ) {
+				$parts[] = 'class="' . $class . '"';
+			}
+		}
+
+		if ( ! empty( $datas ) ) {
+			foreach ( $datas as $data => $val ) {
+				$parts[] = 'data-' . sanitize_html_class( $data ) . '="' . esc_attr( $val ) . '"';
+			}
+		}
+
+		if ( ! empty( $atts ) ) {
+			foreach ( $atts as $att => $val ) {
+				if ( '0' === $val || ! empty( $val ) ) {
+					if ( $att[0] === '[' ) { //phpcs:ignore
+						// Handle special case for bound attributes in AMP.
+						$escaped_att = '[' . sanitize_html_class( trim( $att, '[]' ) ) . ']';
+					} else {
+						$escaped_att = sanitize_html_class( $att );
+					}
+					$parts[] = $escaped_att . '="' . esc_attr( $val ) . '"';
+				}
+			}
+		}
+
+		$output = implode( ' ', $parts );
+
+		if ( $echo ) {
+			echo esc_html( trim( $output ) );
+		} else {
+			return trim( $output );
+		}
+	}
+
+	/**
+ * Sanitize string of CSS classes.
+ *
+ * @param array|string $classes Class names.
+ * @param bool         $convert True will convert strings to array and vice versa.
+ *
+ * @return string|array
+ */
+ private function ai_sanitize_classes( $classes, $convert = false ) {
+	$css   = array();
+	$array = is_array( $classes );
+
+	if ( ! empty( $classes ) ) {
+		if ( ! $array ) {
+			$classes = explode( ' ', trim( $classes ) );
+		}
+		foreach ( $classes as $class ) {
+			$css[] = sanitize_html_class( $class );
+		}
+	}
+
+	if ( $array ) {
+		return $convert ? implode( ' ', $css ) : $css;
+	} else {
+		return $convert ? $css : implode( ' ', $css );
+	}
+ }
 
 }

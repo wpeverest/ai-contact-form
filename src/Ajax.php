@@ -6,7 +6,7 @@
  * @since   1.0.0
  */
 
-namespace EverestForms\AI\Ajax;
+namespace EverestForms\AI;
 
 use EverestForms\AI\API\API;
 
