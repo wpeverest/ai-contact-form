@@ -10,6 +10,7 @@ class GithubUpdater {
     private $username;
     private $repository;
     private $github_response;
+	
 
 	/**
      * Constructor.
