@@ -77,7 +77,7 @@ class AI {
 	public function __construct() {
 	// Checks with Everest Forms is installed.
 	if ( defined( 'EVF_VERSION' ) && version_compare( EVF_VERSION, '2.0.2', '>=' ) ) {
-		
+
 		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
 		add_filter( 'plugin_action_links_' . plugin_basename( EVF_AI_PLUGIN_FILE ), array( $this, 'plugin_action_links' ) );
 		add_filter( 'plugin_row_meta', array( $this, 'plugin_row_meta' ), 20, 2 );
@@ -201,7 +201,7 @@ class AI {
 	public function openai_init() {
 		new Process();
 		new Ajax();
-		GithubUpdater::setup();
+		
 	}
 
 	/**
