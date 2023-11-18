@@ -4,50 +4,12 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitc28617333b9a2d20338b1f8ab25b494f
+class ComposerStaticInit341d2db7bc2919125e14bb1571091475
 {
-    public static $files = array (
-        'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
-        '3937806105cc8e221b8fa8db5b70d2f2' => __DIR__ . '/..' . '/wp-cli/mustangostang-spyc/includes/functions.php',
-        'be01b9b16925dcb22165c40b46681ac6' => __DIR__ . '/..' . '/wp-cli/php-cli-tools/lib/cli/cli.php',
-        'ffb465a494c3101218c4417180c2c9a2' => __DIR__ . '/..' . '/wp-cli/i18n-command/i18n-command.php',
-    );
-
     public static $prefixLengthsPsr4 = array (
-        'W' => 
-        array (
-            'WP_CLI\\I18n\\' => 12,
-        ),
-        'V' => 
-        array (
-            'VariableAnalysis\\' => 17,
-        ),
-        'S' => 
-        array (
-            'Symfony\\Polyfill\\Php80\\' => 23,
-            'Symfony\\Component\\Finder\\' => 25,
-        ),
-        'P' => 
-        array (
-            'Peast\\' => 6,
-        ),
-        'M' => 
-        array (
-            'Mustangostang\\' => 14,
-            'Matex\\' => 6,
-        ),
-        'G' => 
-        array (
-            'Gettext\\Languages\\' => 18,
-            'Gettext\\' => 8,
-        ),
         'E' => 
         array (
             'EverestForms\\AI\\' => 16,
-        ),
-        'D' => 
-        array (
-            'Dealerdirect\\Composer\\Plugin\\Installers\\PHPCodeSniffer\\' => 55,
         ),
         'C' => 
         array (
@@ -56,49 +18,9 @@ class ComposerStaticInitc28617333b9a2d20338b1f8ab25b494f
     );
 
     public static $prefixDirsPsr4 = array (
-        'WP_CLI\\I18n\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/wp-cli/i18n-command/src',
-        ),
-        'VariableAnalysis\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/sirbrillig/phpcs-variable-analysis/VariableAnalysis',
-        ),
-        'Symfony\\Polyfill\\Php80\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/polyfill-php80',
-        ),
-        'Symfony\\Component\\Finder\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/finder',
-        ),
-        'Peast\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/mck89/peast/lib/Peast',
-        ),
-        'Mustangostang\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/wp-cli/mustangostang-spyc/src',
-        ),
-        'Matex\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/madorin/matex/src',
-        ),
-        'Gettext\\Languages\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/gettext/languages/src',
-        ),
-        'Gettext\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/gettext/gettext/src',
-        ),
         'EverestForms\\AI\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
-        ),
-        'Dealerdirect\\Composer\\Plugin\\Installers\\PHPCodeSniffer\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/dealerdirect/phpcodesniffer-composer-installer/src',
         ),
         'Composer\\Installers\\' => 
         array (
@@ -106,48 +28,16 @@ class ComposerStaticInitc28617333b9a2d20338b1f8ab25b494f
         ),
     );
 
-    public static $prefixesPsr0 = array (
-        'c' => 
-        array (
-            'cli' => 
-            array (
-                0 => __DIR__ . '/..' . '/wp-cli/php-cli-tools/lib',
-            ),
-        ),
-        'W' => 
-        array (
-            'WP_CLI\\' => 
-            array (
-                0 => __DIR__ . '/..' . '/wp-cli/wp-cli/php',
-            ),
-        ),
-        'M' => 
-        array (
-            'Mustache' => 
-            array (
-                0 => __DIR__ . '/..' . '/mustache/mustache/src',
-            ),
-        ),
-    );
-
     public static $classMap = array (
-        'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
-        'PhpToken' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/PhpToken.php',
-        'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
-        'UnhandledMatchError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
-        'ValueError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/ValueError.php',
-        'WP_CLI' => __DIR__ . '/..' . '/wp-cli/wp-cli/php/class-wp-cli.php',
-        'WP_CLI_Command' => __DIR__ . '/..' . '/wp-cli/wp-cli/php/class-wp-cli-command.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitc28617333b9a2d20338b1f8ab25b494f::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitc28617333b9a2d20338b1f8ab25b494f::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitc28617333b9a2d20338b1f8ab25b494f::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInitc28617333b9a2d20338b1f8ab25b494f::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit341d2db7bc2919125e14bb1571091475::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit341d2db7bc2919125e14bb1571091475::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit341d2db7bc2919125e14bb1571091475::$classMap;
 
         }, null, ClassLoader::class);
     }
