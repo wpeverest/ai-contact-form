@@ -201,7 +201,7 @@ class AI {
 	public function openai_init() {
 		new Process();
 		new Ajax();
-		
+
 	}
 
 	/**
@@ -307,6 +307,24 @@ class AI {
 			<div class="notice-warning notice">
 				<p><?php esc_html_e( 'AI requires the Everest Forms Plugin.', 'ai-contact-form' ); ?></p>
 				<p><a href="<?php echo esc_url( $plugin_url ); ?>" class="button-primary"><?php esc_html_e( 'Click here to activate the plugin', 'ai-contact-form' ); ?></a></p>
+			</div>
+			<?php
+		} else {
+			$plugin_url = wp_nonce_url(
+				add_query_arg(
+					array(
+						'action' => 'install-plugin',
+						'plugin' => 'everest-forms'
+					),
+					admin_url( 'update.php' )
+				),
+				'install-plugin_everest-forms'
+			);
+
+			?>
+			<div class="notice-warning notice">
+				<p><?php esc_html_e( 'AI requires the Everest Forms Plugin to be installed.', 'everest-forms-pro' ); ?></p>
+				<p ><a href="<?php echo esc_url( $plugin_url ); ?>" class="button-primary"><?php esc_html_e( 'Click here to install the plugin', 'everest-forms-pro' ); ?></a></p>
 			</div>
 			<?php
 		}
