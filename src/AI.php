@@ -323,8 +323,8 @@ class AI {
 
 			?>
 			<div class="notice-warning notice">
-				<p><?php esc_html_e( 'AI requires the Everest Forms Plugin to be installed.', 'everest-forms-pro' ); ?></p>
-				<p ><a href="<?php echo esc_url( $plugin_url ); ?>" class="button-primary"><?php esc_html_e( 'Click here to install the plugin', 'everest-forms-pro' ); ?></a></p>
+				<p><?php esc_html_e( 'AI requires the Everest Forms Plugin to be installed.', 'ai-contact-form' ); ?></p>
+				<p ><a href="<?php echo esc_url( $plugin_url ); ?>" class="button-primary"><?php esc_html_e( 'Click here to install the plugin', 'ai-contact-form' ); ?></a></p>
 			</div>
 			<?php
 		}
