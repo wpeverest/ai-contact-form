@@ -61,7 +61,7 @@ Love Everest Forms? If you do, then you should check out more WordPress themes a
 
 * [Zakra](https://wordpress.org/themes/zakra/) - Best WordPress Multipurpose Theme Powering 60K+ Websites.
 
-* [ThemeGrill](https://themegrill.com/wordpress-themes/free/) - Beautiful Free WordPress Themes.
+* [ThemeGrill](https://themegrill.com/blog/free-wordpress-themes/) - Beautiful Free WordPress Themes.
 
 
 == Frequently Asked Questions ==
