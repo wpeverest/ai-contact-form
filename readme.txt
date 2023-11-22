@@ -44,7 +44,7 @@ As mentioned above, the AI Contact Form addon gives you detailed reports based o
 
 ==Get in Touch with us  ==
 
-👉 [Facebook Group](https://www.facebook.com/groups/themegrill)
+👉 [Facebook Group](https://www.facebook.com/wp.everestforms)
 
 👉 [Twitter](https://twitter.com/everestforms)
 
