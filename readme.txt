@@ -8,23 +8,33 @@ Stable tag: 1.0.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-AI Contact Form.
+== Description ==
 
-= Support Policy =
+**AI Contact Form** addon is the perfect addition to your website’s forms. Turn your boring WordPress forms into interactive ones by integrating OpenAI into them.
 
-We will happily patch any confirmed bugs with this plugin, however, we will not offer support for:
+Everest Forms is providing its users with the ability to integrate OpenAI into their WordPress forms for absolutely no cost. Doesn’t even take much effort and time! Simply retrieve API keys from the official OpenAI website and paste them on the settings and you’re good to go!
 
-1. Customisations of this plugin or any plugins it relies upon
-2. Conflicts with "premium" themes from ThemeForest and similar marketplaces (due to bad practice and not being readily available to test)
-3. CSS Styling (this is customisation work)
+Websites of any niche can use this addon. From blogs to business, this addon will play a huge impact on your website’s success. Here are the key features listed:
 
-If you need help with customisation you will need to find and hire a developer capable of making the changes.
+== Features ==
 
-== Installation ==
+* **OpenAI Chatbot:** Would you like to take your WordPress form to a whole NEW level? Our AI Contact Form addon utilizes AI to respond to users’ queries on its own. Simply map it with a Single Line Text and you’re done.
+* **AI-Generated Advanced Emails:** Another benefit you get is AI will generate emails based on your prompt and send it out to the users on your behalf. This way you get to send professionally written emails without any hard work. One prompt and you can reply to an unlimited number of users! What more can you wish for?
+* **AI-Generated Report on Field Data:** This addon also helps in getting valuable insights to your users. Write down a prompt of what you expect the AI to analyze, and the AI does it for you. You can view the detailed report that the AI has collected based on the users’ responses from Everest Forms > Entries.
 
-To install this plugin, please refer to the guide here: [http://codex.wordpress.org/Managing_Plugins#Manual_Plugin_Installation](http://codex.wordpress.org/Managing_Plugins#Manual_Plugin_Installation)
+== Use Cases==
 
-== Changelog ==
+We would like to explain a few use cases for this addon. This gives you a better idea of how you can fully utilize it.
 
-= 1.0.0 - 30-08-2023 =
-* Initial release.
+ **To create interactive and user-engaging forms**
+
+With the OpenAI Chatbot, your users get real-time responses based on their input data. This makes your form interesting and can boost users’ experience.
+
+**Send out business emails or respond to job candidates**
+
+Another use case for the AI Contact Form addon is you can use AI for creating emails to clients. Also, you can directly email job candidates to inform them whether they are selected or rejected by setting up a proper prompt.
+
+ **Learn your users’ feelings towards your product**
+
+As mentioned above, the AI Contact Form addon gives you detailed reports based on users’ responses. With proper prompts and users’ responses, you can learn what views your users have on your product. This provides you with information to find areas for improvement.
+
