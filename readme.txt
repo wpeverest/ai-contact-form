@@ -1,6 +1,6 @@
 === AI Contact Form ===
 Contributors: WPEverest
-Tags: ai contact form
+Tags: ai contact form, ai email response, ai Reporting, create chatbot, ai
 Requires at least: 5.2
 Tested up to: 6.3
 Requires PHP: 7.2
