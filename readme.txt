@@ -16,6 +16,8 @@ Everest Forms is providing its users with the ability to integrate OpenAI into t
 
 Websites of any niche can use this addon. From blogs to business, this addon will play a huge impact on your website’s success. Here are the key features listed:
 
+[youtube https://www.youtube.com/watch?v=2Hs_dwpyJ54]
+
 == Features ==
 
 * **OpenAI Chatbot:** Would you like to take your WordPress form to a whole NEW level? Our AI Contact Form addon utilizes AI to respond to users’ queries on its own. Simply map it with a Single Line Text and you’re done.
@@ -38,3 +40,10 @@ Another use case for the AI Contact Form addon is you can use AI for creating em
 
 As mentioned above, the AI Contact Form addon gives you detailed reports based on users’ responses. With proper prompts and users’ responses, you can learn what views your users have on your product. This provides you with information to find areas for improvement.
 
+==Get in Touch with us  ==
+
+👉 [Facebook Group](https://www.facebook.com/groups/themegrill)
+
+👉 [Twitter](https://twitter.com/everestforms)
+
+👉 [Youtube](https://www.youtube.com/@EverestForms)
