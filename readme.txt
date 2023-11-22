@@ -18,6 +18,8 @@ Websites of any niche can use this addon. From blogs to business, this addon wil
 
 [youtube https://www.youtube.com/watch?v=2Hs_dwpyJ54]
 
+👉 [Blog](https://everestforms.net/blog/ai-in-wordpress-contact-forms/) | 👉 [Documentation](https://docs.everestforms.net/docs/ai/)
+
 == Features ==
 
 * **OpenAI Chatbot:** Would you like to take your WordPress form to a whole NEW level? Our AI Contact Form addon utilizes AI to respond to users’ queries on its own. Simply map it with a Single Line Text and you’re done.
