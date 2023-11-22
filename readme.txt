@@ -49,3 +49,32 @@ As mentioned above, the AI Contact Form addon gives you detailed reports based o
 👉 [Twitter](https://twitter.com/everestforms)
 
 👉 [Youtube](https://www.youtube.com/@EverestForms)
+
+==Explore More Products from Our Team==
+Love Everest Forms? If you do, then you should check out more WordPress themes and plugins from us.
+
+* [Masteriyo](https://masteriyo.com/) - A Powerful and Easy WordPress LMS Plugin. 
+
+* [User Registration](https://wpuserregistration.com/) - #1 Best WordPress User Registration Plugin.
+
+* [Gutenberg Blocks by BlockArt](https://wordpress.org/plugins/blockart-blocks/) - Free Gutenberg Custom Blocks Plugin.
+
+* [Zakra](https://wordpress.org/themes/zakra/) - Best WordPress Multipurpose Theme Powering 60K+ Websites.
+
+* [ThemeGrill](https://themegrill.com/wordpress-themes/free/) - Beautiful Free WordPress Themes.
+
+
+== Frequently Asked Questions ==
+
+= Do I need the Everest Forms plugin to use the AI Contact Form? =
+
+Yes, you need the Everest Forms plugin to use the AI Contact Form
+
+= What AI technology is the AI Contact Form going to use? =
+
+The AI Contact Form is going to use ChatGPT as its AI technology.
+
+== Changelog ==
+
+= 1.0.0       - 11-22-2023
+* Initial Release.
