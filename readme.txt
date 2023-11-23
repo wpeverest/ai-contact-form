@@ -4,7 +4,7 @@ Tags: ai contact form, ai email response, ai reporting, create chatbot, ai
 Requires at least: 5.2
 Tested up to: 6.4
 Requires PHP: 7.2
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
