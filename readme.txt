@@ -1,8 +1,8 @@
-=== AI Contact Form ===
+=== AI Chatbot, Assistant Generator, Custom Form Builder for Everest Forms ===
 Contributors: WPEverest
-Tags: ai contact form, ai email response, ai Reporting, create chatbot, ai
+Tags: ai contact form, ai email response, ai reporting, create chatbot, ai
 Requires at least: 5.2
-Tested up to: 6.3
+Tested up to: 6.4
 Requires PHP: 7.2
 Stable tag: 1.0.0
 License: GPLv3
@@ -18,7 +18,7 @@ Websites of any niche can use this addon. From blogs to business, this addon wil
 
 [youtube https://www.youtube.com/watch?v=2Hs_dwpyJ54]
 
-👉 [Blog](https://everestforms.net/blog/ai-in-wordpress-contact-forms/) | 👉 [Documentation](https://docs.everestforms.net/docs/ai/)
+👉 [Documentation](https://docs.everestforms.net/docs/ai/)
 
 == Features ==
 
@@ -41,6 +41,9 @@ Another use case for the AI Contact Form addon is you can use AI for creating em
  **Learn your users’ feelings towards your product**
 
 As mentioned above, the AI Contact Form addon gives you detailed reports based on users’ responses. With proper prompts and users’ responses, you can learn what views your users have on your product. This provides you with information to find areas for improvement.
+
+### Hands-On AI Contact Form Tutorials for Your Ease
+* [How to Integrate AI in WordPress Contact Forms Using ChatGPT?](https://everestforms.net/blog/ai-in-wordpress-contact-forms/)
 
 ==Get in Touch with us  ==
 
@@ -78,3 +81,6 @@ The AI Contact Form is going to use ChatGPT as its AI technology.
 
 = 1.0.0       - 11-22-2023
 * Initial Release.
+
+= 1.0.1       - 11-23-2023
+* Fix 		  - Broken Url Links.
