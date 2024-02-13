@@ -61,7 +61,12 @@ class Settings extends \EVF_Settings_Page {
 				),
 				array(
 					'title'    => esc_html__( 'OpenAI Temperature', 'ai-contact-form' ),
-					'type'     => 'text',
+					'type'     => 'number',
+					'custom_attributes' => array(
+						'step' => '0.1',
+						'min'  => '0.2',
+						'max'  => '0.8',
+					),
 					/* translators: %1$s - Google API docs url */
 					'desc'     => sprintf( esc_html__( 'Please enter your OpenAI Temperature. <a href="%1$s" target="_blank">Learn More</a>', 'ai-contact-form' ), esc_url( 'https://docs.everestforms.net/docs/ai/' ) ),
 					'id'       => 'everest_forms_ai_temperature',
@@ -70,7 +75,12 @@ class Settings extends \EVF_Settings_Page {
 				),
 				array(
 					'title'    => esc_html__( 'OpenAI Max Tokens', 'ai-contact-form' ),
-					'type'     => 'text',
+					'type'     => 'number',
+					'custom_attributes' => array(
+						'step' => '1',
+						'min'  => '1',
+						'max'  => '4000',
+					),
 					/* translators: %1$s - Google API docs url */
 					'desc'     => sprintf( esc_html__( 'Please enter your OpenAI Max Tokens. <a href="%1$s" target="_blank">Learn More</a>', 'ai-contact-form' ), esc_url( 'https://docs.everestforms.net/docs/ai/' ) ),
 					'id'       => 'everest_forms_ai_max_tokens',
