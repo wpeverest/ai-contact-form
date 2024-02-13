@@ -49,6 +49,11 @@ var EverestFormsAI =
             }
           });
 
+		  selectedElements.on("change", function (event) {
+              event.preventDefault();
+              app.evfChatBot($(this));
+          });
+
 		  dropdownElements.on("change", function (event) {
               event.preventDefault();
               app.evfChatBot($(this));
