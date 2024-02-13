@@ -51,6 +51,33 @@ class Settings extends \EVF_Settings_Page {
 					'desc_tip' => true,
 				),
 				array(
+					'title'    => esc_html__( 'OpenAI API Model', 'ai-contact-form' ),
+					'type'     => 'text',
+					/* translators: %1$s - Google API docs url */
+					'desc'     => sprintf( esc_html__( 'Please enter your OpenAI API Model. <a href="%1$s" target="_blank">Learn More</a>', 'ai-contact-form' ), esc_url( 'https://docs.everestforms.net/docs/ai/' ) ),
+					'id'       => 'everest_forms_ai_api_model',
+					'default'  => '',
+					'desc_tip' => true,
+				),
+				array(
+					'title'    => esc_html__( 'OpenAI Temperature', 'ai-contact-form' ),
+					'type'     => 'text',
+					/* translators: %1$s - Google API docs url */
+					'desc'     => sprintf( esc_html__( 'Please enter your OpenAI Temperature. <a href="%1$s" target="_blank">Learn More</a>', 'ai-contact-form' ), esc_url( 'https://docs.everestforms.net/docs/ai/' ) ),
+					'id'       => 'everest_forms_ai_temperature',
+					'default'  => '',
+					'desc_tip' => true,
+				),
+				array(
+					'title'    => esc_html__( 'OpenAI Max Tokens', 'ai-contact-form' ),
+					'type'     => 'text',
+					/* translators: %1$s - Google API docs url */
+					'desc'     => sprintf( esc_html__( 'Please enter your OpenAI Max Tokens. <a href="%1$s" target="_blank">Learn More</a>', 'ai-contact-form' ), esc_url( 'https://docs.everestforms.net/docs/ai/' ) ),
+					'id'       => 'everest_forms_ai_max_tokens',
+					'default'  => '',
+					'desc_tip' => true,
+				),
+				array(
 					'type' => 'sectionend',
 					'id'   => 'everest_forms_ai_options',
 				),
