@@ -32,11 +32,14 @@ var EverestFormsAI =
         $(document).ready(function () {
           var fieldIds = everest_forms_ai_params.field_id;
           var selectedElements = $();
+		  var dropdownElements = $();
 
           fieldIds.forEach(function (id) {
             var name = "everest_forms[form_fields][" + id + "]";
             var elements = $("input[name^='" + name + "']");
+			var dropdown_elements = $("select[name^='" + name + "']");
             selectedElements = selectedElements.add(elements);
+			dropdownElements = dropdownElements.add(dropdown_elements);
           });
 
           selectedElements.on("keydown", function (event) {
@@ -45,6 +48,12 @@ var EverestFormsAI =
               app.evfChatBot($(this));
             }
           });
+
+		  dropdownElements.on("change", function (event) {
+              event.preventDefault();
+              app.evfChatBot($(this));
+          });
+
         });
       },
       evfChatBot: function ($this) {
