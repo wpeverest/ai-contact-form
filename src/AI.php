@@ -106,6 +106,13 @@ class AI {
 	 * @return bool Updated authentication status.
 	 */
 	public function ai_authentication( $is_authenticated ) {
+		if ( ! isset( $_GET['page'] ) || 'evf-settings' !== $_GET['page'] ) {
+			return $is_authenticated;
+		}
+		if ( ! isset( $_GET['tab'] ) || 'ai' !== $_GET['tab'] ) {
+			return $is_authenticated;
+		}
+
 		$api_key  = get_option( 'everest_forms_ai_api_key' );
 		$response = new API( $api_key );
 		$res      = $response->authentication();
