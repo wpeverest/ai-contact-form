@@ -61,22 +61,25 @@ class API {
 	 * @param string $method HTTP method.
 	 * @return array|bool Response from the AI API.
 	 */
-	public function send_openai_request( $path, $data = array(), $max_tokens = 3000, $method = 'POST' ) {
+	public function send_openai_request( $path, $data = array(), $method = 'POST' ) {
 
 		$api_url = $this->endpoint . $path;
+		$model = ! empty ( get_option( 'everest_forms_ai_api_model' ) ) ? get_option( 'everest_forms_ai_api_model' ) : 'gpt-3.5-turbo-0301';
+		$temperature = ! empty ( get_option( 'everest_forms_ai_temperature' ) ) ? (float)get_option( 'everest_forms_ai_temperature' ):'0.7';
+		$max_tokens = ! empty ( get_option( 'everest_forms_ai_max_tokens' )) ? (int)get_option( 'everest_forms_ai_max_tokens' ) : 3000;
 
 		$default_data       = array(
-			'model'       => 'gpt-3.5-turbo-0301',
+			'model'       => $model,
 			'messages'    => array(
 				array(
 					'role'    => 'system',
 					'content' => 'You are a helpful assistant.',
 				),
 			),
-			'temperature' => 0.7,
 		);
 		$data               = array_merge( $default_data, $data );
 		$data['max_tokens'] = $max_tokens;
+		$data['temperature'] = $temperature;
 		$headers            = array(
 			'content-type'  => 'application/json',
 			'Authorization' => 'Bearer ' . $this->api_key,
@@ -119,6 +122,7 @@ class API {
 
 		$response = wp_remote_request( $this->endpoint . $path, $args );
 		$code     = wp_remote_retrieve_response_code( $response );
+
 		$body     = wp_remote_retrieve_body( $response );
 
 		if ( is_wp_error( $response ) || 200 !== $code ) {
