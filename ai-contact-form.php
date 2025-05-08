@@ -3,7 +3,7 @@
  * Plugin Name: AI Contact Form.
  * Plugin URI: https://everestforms.net/features/ai/
  * Description: Everest Forms AI offers Chatbot functionality, Email Prompt assistance, and the capability for field analysis.
- * Version: 1.0.2
+ * Version: 1.1.0
  * Author: WPEverest
  * Author URI: https://wpeverest.com
  * Text Domain: ai-contact-form
@@ -21,7 +21,7 @@ defined( 'ABSPATH' ) || exit;
 
 // Define plugin version.
 if ( ! defined( 'EVF_AI_VERSION' ) ) {
-	define( 'EVF_AI_VERSION', '1.0.2' );
+	define( 'EVF_AI_VERSION', '1.1.0' );
 }
 
 // Define plugin root file.
