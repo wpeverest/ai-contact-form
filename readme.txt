@@ -2,9 +2,9 @@
 Contributors: WPEverest
 Tags: ai contact form, ai email response, ai reporting, create chatbot, ai
 Requires at least: 5.2
-Tested up to: 6.7.1
+Tested up to: 6.8.1
 Requires PHP: 7.2
-Stable tag: 1.0.2
+Stable tag: 1.1.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -78,6 +78,9 @@ Yes, you need the Everest Forms plugin to use the AI Contact Form
 The AI Contact Form is going to use ChatGPT as its AI technology.
 
 == Changelog ==
+
+= 1.1.0       - 13-05-2025
+* Fix 		  - Fix - AI Contact form not working.
 
 = 1.0.2       - 05-03-2025
 * Fix 		  - AI contact form message displaying on all pages instead of intended locations.
